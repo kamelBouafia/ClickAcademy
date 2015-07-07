@@ -1,23 +1,35 @@
-<section data-ng-controller="LessonsController">
-    <div class="page-header">
-        <h1>New Lesson</h1>
+<section>
+    <div class="modal-header">
+        <h1>Nouveau Cours</h1>
     </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="create()" novalidate>
+    <div class="col-md-12  modal-body">
+        <form class="form-horizontal form-offre" name="CreateOfferForm" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
+                    <div data-ng-show="error" class="text-center text-danger">
+                        <div class="alert alert-danger" role="alert">
+                            <strong data-ng-bind="error"></strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="name">Titre</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Titre" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-default">
+                    <label class="control-label" for="description">Description</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="description" id="description" class="form-control" placeholder="Desription" required>
+                    </div>
                 </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
             </fieldset>
         </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success btn-lg" ng-click="ok()" ng-disabled="CreateOfferForm.$invalid">Créer</button>
+        <button class="btn btn-warning btn-lg" ng-click="cancel()">Annuler</button>
     </div>
 </section>
