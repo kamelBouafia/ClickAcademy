@@ -1,9 +1,51 @@
 'use strict';
 
 // Lessons controller
-angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Lessons',
-	function($scope, $stateParams, $location, Authentication, Lessons ) {
+angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Lessons','$modal', '$log',
+	function($scope, $stateParams, $location, Authentication, Lessons, $modal, $log) {
 		$scope.authentication = Authentication;
+
+        this.modalCreate = function (size) {
+            var modalInstance = $modal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'modules/lessons/views/create-lesson.client.view.html',
+                controller: function ($scope, $modalInstance, parentScope) {
+                    $scope.create = function() {
+                        // Create new Evenement object
+                        var lesson = new Lessons ({
+                            name: $scope.name,
+                            description: $scope.description
+                        });
+
+                        console.log(lesson.name);
+                        // Redirect after save
+                        lesson.$save(function(response) {
+                            //console.log("yow yow event has been created ");
+                            parentScope.find();
+                        }, function(errorResponse) {
+                            $scope.error = errorResponse.data.message;
+                        });
+                    };
+
+                    $scope.ok = function () {
+                        $scope.create();
+                        modalInstance.close();
+                    };
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                },
+                size: size,
+                resolve: {
+                    lesson: function () {
+                        return $scope.lesson;
+                    },
+                    parentScope:function(){
+                        return $scope;
+                    }
+                }
+            });
+        };
 
 		// Create new Lesson
 		$scope.create = function() {
@@ -51,7 +93,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		};
 
 		// Find a list of Lessons
-		$scope.find = function() {
+		$scope.find = this.find = function() {
 			$scope.lessons = Lessons.query();
 		};
 
