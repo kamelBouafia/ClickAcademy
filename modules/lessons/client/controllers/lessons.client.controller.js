@@ -105,3 +105,17 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		};
 	}
 ]);
+angular.module('lessons').directive('levelsList', ['Lessons', function(Customers, Notify){
+    return {
+        restrict :'E',
+        transclude: true,
+        templateUrl:'modules/levels/views/list-levels.client.view.html',
+        link: function(scope, element, attrs) {
+
+            //when a new customer is added, update the customers list
+            /*Notify.getMsg('NewCustomer', function(event, data){
+                scope.customersCtrl.customers = Customers.query();
+            });*/
+        }
+    };
+}]);

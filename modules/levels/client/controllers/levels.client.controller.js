@@ -1,28 +1,56 @@
 'use strict';
 
 // Levels controller
-angular.module('levels').controller('LevelsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Levels',
-	function($scope, $stateParams, $location, Authentication, Levels ) {
+angular.module('levels').controller('LevelsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Levels', '$modal',
+	function($scope, $http, $stateParams, $location, Authentication, Levels, $modal ) {
 		$scope.authentication = Authentication;
 
-		// Create new Level
-		$scope.create = function() {
-			// Create new Level object
-			var level = new Levels ({
-				name: this.name
-			});
+        this.modalCreate = function (size, selectedLesson) {
+            var modalInstance = $modal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'modules/levels/views/create-level.client.view.html',
+                controller: function ($scope, $modalInstance, parentScope, lesson) {
+                    $scope.create = function() {
+                        // Create new Evenement object
+                        var level = new Levels ({
+                            name: $scope.name,
+                            description: $scope.description
+                        });
 
-			// Redirect after save
-			level.$save(function(response) {
-				$location.path('levels/' + response._id);
+                        //console.log('jdjhd c '+lesson._id+$scope.name+' '+level.description);
+                        // Redirect after save
+                        level.$save({lessonId: lesson._id},
+                            function(response) {
+                                console.log('yow yow level has been created ');
+                                //parentScope.find();
+                                parentScope.levels.push(response);
+                            }, function(errorResponse) {
+                                //console.log('yow yow level has not been created ');
+                                $scope.error = errorResponse.data.message;
+                            }
+                        );
+                    };
 
-				// Clear form fields
-				$scope.name = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
-
+                    $scope.ok = function () {
+                        //console.log('jdjhd c wdddddddddddddddd');
+                        $scope.create();
+                        modalInstance.close();
+                    };
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                },
+                size: size,
+                resolve: {
+                    lesson: function () {
+                        return selectedLesson;
+                    },
+                    parentScope:function(){
+                        return $scope;
+                    }
+                }
+            });
+        };
 		// Remove existing Level
 		$scope.remove = function( level ) {
 			if ( level ) { level.$remove();
@@ -52,7 +80,17 @@ angular.module('levels').controller('LevelsController', ['$scope', '$stateParams
 
 		// Find a list of Levels
 		$scope.find = function() {
-			$scope.levels = Levels.query();
+            //$scope.levels= $http.get('api/lessons/'+$scope.lesson._id+'/api/levels');
+			//$scope.levels = Levels.query();
+            Levels.query( {lessonId: $stateParams.lessonId} ,
+                function (response) {
+                    //console.log('dfvdffdvdfvdfv');
+                    $scope.levels=response;
+                    //$scope.comment.push(response);
+                }, function (errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                }
+            );
 		};
 
 		// Find existing Level
