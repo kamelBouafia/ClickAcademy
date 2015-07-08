@@ -5,11 +5,12 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
 	function($scope, $http, $stateParams, $location, Authentication, Levels, $modal ) {
 		$scope.authentication = Authentication;
 
-        this.modalCreate = function (size, selectedLesson) {
+        this.modalCreate = function (selectedLesson) {
             var modalInstance = $modal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'modules/levels/views/create-level.client.view.html',
                 controller: function ($scope, $modalInstance, parentScope, lesson) {
+                    $scope.lesson = lesson;
                     $scope.create = function() {
                         // Create new Evenement object
                         var level = new Levels ({
@@ -40,7 +41,6 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
                         $modalInstance.dismiss('cancel');
                     };
                 },
-                size: size,
                 resolve: {
                     lesson: function () {
                         return selectedLesson;
@@ -53,7 +53,7 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
         };
 
         // Open a modal window to update a single event record
-        this.modalUpdate = function(size, selectedLesson, selectedLevel){
+        this.modalUpdate = function( selectedLesson, selectedLevel){
             //console.log("yow yow from modalUpdate");
             var modalInstance = $modal.open({
                 templateUrl:'modules/levels/views/edit-level.client.view.html',
@@ -89,7 +89,6 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
                         $modalInstance.dismiss('cancel');
                     };
                 },
-                size: size,
                 resolve: {
                     level: function(){
                         return selectedLevel;
