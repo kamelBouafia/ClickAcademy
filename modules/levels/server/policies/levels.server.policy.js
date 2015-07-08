@@ -15,16 +15,16 @@ exports.invokeRolesPolicies = function() {
 	acl.allow([{
 		roles: ['admin'],
 		allows: [{
-			resources: '/api/levels',
+			resources: '/api/lessons/:lessonId/api/levels',
 			permissions: '*'
 		}, {
-			resources: '/api/levels/:levelId',
+			resources: '/api/lessons/:lessonId/api/levels/:levelId',
 			permissions: '*'
 		}]
 	}, {
 		roles: ['user'],
 		allows: [{
-			resources: '/api/levels',
+			resources: '/api/lessons/:lessonId/api/levels',
 			permissions: ['get', 'post']
 		}, {
 			resources: '/api/levels/:levelId',
@@ -33,10 +33,10 @@ exports.invokeRolesPolicies = function() {
 	}, {
 		roles: ['guest'],
 		allows: [{
-			resources: '/api/levels',
+			resources: '/api/lessons/:lessonId/api/levels',
 			permissions: ['get']
 		}, {
-			resources: '/api/levels/:levelId',
+			resources: '/api/lessons/:lessonId/api/levels/:levelId',
 			permissions: ['get']
 		}]
 	}]);

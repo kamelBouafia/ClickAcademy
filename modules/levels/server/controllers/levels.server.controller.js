@@ -7,6 +7,7 @@ var _ = require('lodash'),
 	path = require('path'),
 	mongoose = require('mongoose'),
 	Level = mongoose.model('Level'),
+    Lesson = mongoose.model('Lesson'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
@@ -15,6 +16,8 @@ var _ = require('lodash'),
 exports.create = function(req, res) {
 	var level = new Level(req.body);
 	level.user = req.user;
+    level.lesson = req.lesson;
+    //console.log('new level for '+level.user);
 
 	level.save(function(err) {
 		if (err) {
@@ -22,7 +25,20 @@ exports.create = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(level);
+            Lesson.findByIdAndUpdate(
+                level.lesson,
+                {'$push': {levels: {'_id': level._id}}},
+                function (err, contenu) {
+                    if (err) {
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    } else{
+                        //console.log('new level yow yow');
+                        res.jsonp(level);
+                    }
+                }
+            );
 		}
 	});
 };
@@ -73,12 +89,15 @@ exports.delete = function(req, res) {
 /**
  * List of Levels
  */
-exports.list = function(req, res) { Level.find().sort('-created').populate('user', 'displayName').exec(function(err, levels) {
+exports.list = function(req, res) {
+
+    Level.find({lesson: req.lesson}).sort('-created').populate('user', 'displayName').exec(function(err, levels) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+            console.log('new level request listiiiiiiiiiiiiiiiiing'+levels.length);
 			res.jsonp(levels);
 		}
 	});
