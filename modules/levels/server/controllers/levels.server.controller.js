@@ -97,7 +97,7 @@ exports.list = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-            console.log('new level request listiiiiiiiiiiiiiiiiing'+levels.length);
+            //console.log('new level request listiiiiiiiiiiiiiiiiing'+levels.length);
 			res.jsonp(levels);
 		}
 	});
