@@ -1,23 +1,35 @@
-<section data-ng-controller="LevelsController" data-ng-init="findOne()">
-    <div class="page-header">
-        <h1>Edit Level</h1>
+<section>
+    <div class="modal-header">
+        <h1>Mise à jour du Niveau {{level.name}} pour le cous {{lesson.name}}</h1>
     </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="update()" novalidate>
+    <div class="col-md-12  modal-body">
+        <form class="form-horizontal form-offre" name="CreateOfferForm" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
+                    <div data-ng-show="error" class="text-center text-danger">
+                        <div class="alert alert-danger" role="alert">
+                            <strong data-ng-bind="error"></strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="name">Numero</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="level.name" id="name" class="form-control" placeholder="Name" required>
+                        <input type="number" data-ng-model="value" value="value" id="name" class="form-control" placeholder="Titre" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
+                    <label class="control-label" for="description">Description</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="level.description" id="description" class="form-control" placeholder="Desription" required>
+                    </div>
                 </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
             </fieldset>
         </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success btn-lg" ng-click="ok()" ng-disabled="CreateOfferForm.$invalid">Mèttre à jour</button>
+        <button class="btn btn-warning btn-lg" ng-click="cancel()">Annuler</button>
     </div>
 </section>
