@@ -1,12 +1,12 @@
 <section data-ng-controller="LevelsController as LevelsCtrl" data-ng-init="find()">
     <div class="page-header">
-        <h1>Nivaux {{lesson._id}}</h1>
+        <h1>Nivaux</h1>
     </div>
     <div class="text-center">
         <a ng-click="LevelsCtrl.modalCreate( lesson)">Ajouter un Niveau</a>?
     </div>
     <div class="list-group">
-        <a data-ng-repeat="level in levels"  class="list-group-item" ng-click="LevelsCtrl.modalUpdate( lesson, level)">
+        <a data-ng-repeat="level in levels | orderObjectBy:'name':false"  class="list-group-item" ng-click="LevelsCtrl.modalUpdate( lesson, level)">
             <h3 class="list-group-item-heading" data-ng-bind="'Niveau  '+level.name"></h3>
             <h4 class="list-group-item-heading" data-ng-bind="level.description"></h4>
             <small class="list-group-item-text">

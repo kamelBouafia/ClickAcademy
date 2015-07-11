@@ -146,3 +146,18 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
 		};
 	}
 ]);
+angular.module('levels').filter('orderObjectBy', function() {
+    return function(items, field, reverse) {
+        var filtered = [];
+        angular.forEach(items, function(item) {
+            item.name=parseInt(item.name);
+            filtered.push(item);
+        });
+        filtered.sort(function (a, b) {
+            //return (a[field] > b[field] ? 1 : -1);
+            return (a.name > b.name ? 1 : -1);
+        });
+        if(reverse) filtered.reverse();
+        return filtered;
+    };
+});

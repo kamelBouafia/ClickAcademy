@@ -6,15 +6,15 @@
         <a ng-click="LessonsCtrl.modalCreate('sm')">Créer un nouveau cours</a>?
     </div>
     <div class="list-group">
-        <a data-ng-repeat="lesson in lessons" data-ng-href="/#!/lessons/{{lesson._id}}" class="list-group-item">
+        <a data-ng-repeat="lesson in lessons | orderBy:'name'" data-ng-href="/#!/lessons/{{lesson._id}}" class="list-group-item">
+            <h3 class="list-group-item-heading" data-ng-bind="lesson.name"></h3>
+            <h4 class="list-group-item-heading text-muted" data-ng-bind="lesson.description"></h4>
             <small class="list-group-item-text">
                 Posted on
                 <span data-ng-bind="lesson.created | date:'medium'"></span>
                 by
                 <span data-ng-bind="lesson.user.displayName"></span>
             </small>
-            <h3 class="list-group-item-heading" data-ng-bind="lesson.name"></h3>
-            <h4 class="list-group-item-heading text-muted" data-ng-bind="lesson.description"></h4>
         </a>
     </div>
 </section>

@@ -21,7 +21,8 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
                         // Redirect after save
                         lesson.$save(function(response) {
                             //console.log("yow yow event has been created ");
-                            parentScope.find();
+                            //parentScope.find();
+                            parentScope.lessons.push(response);
                         }, function(errorResponse) {
                             $scope.error = errorResponse.data.message;
                         });
@@ -105,7 +106,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		};
 	}
 ]);
-angular.module('lessons').directive('levelsList', ['Lessons', function(Customers, Notify){
+angular.module('lessons').directive('levelsList', ['Lessons', function(){
     return {
         restrict :'E',
         transclude: true,
