@@ -51,7 +51,7 @@ LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$locati
                         modalInstance.close();
 
                          var log = new Logs ({
-                            name: user.firstName +' has created a lesson'
+                            name: user.firstName +' has created the lesson: ' + $scope.name
                         });
                         log.$save(function(response) {
                             //$location.path('logs/' + response._id);
