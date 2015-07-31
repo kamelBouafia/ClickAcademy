@@ -15,36 +15,47 @@ var _ = require('lodash'),
  */
 exports.signup = function(req, res) {
 	// For security measurement we remove the roles from the req.body object
-	delete req.body.roles;
+    delete req.body.roles;
 
-	// Init Variables
-	var user = new User(req.body);
-	var message = null;
+    var user = new User(req.body);
+    var message = null;
+    // Init Variables
 
 	// Add missing user fields
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
+    /******** si la base de donne ne contient aucun admin on creer un admin *********/
+    User.find({ roles : 'admin'}).exec(function(err,Users){
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        }else{
+            if(Users.length === 0){
+                user.roles.push('admin');
+            }
+            user.save(function(err) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                } else {
+                    // Remove sensitive data before login
+                    user.password = undefined;
+                    user.salt = undefined;
 
-	// Then save the user 
-	user.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			// Remove sensitive data before login
-			user.password = undefined;
-			user.salt = undefined;
-
-			req.login(user, function(err) {
-				if (err) {
-					res.status(400).send(err);
-				} else {
-					res.json(user);
-				}
-			});
-		}
-	});
+                    req.login(user, function(err) {
+                        if (err) {
+                            res.status(400).send(err);
+                        } else {
+                            res.json(user);
+                        }
+                    });
+                }
+            });
+        }
+        // Then save the user
+    });
 };
 
 /**
