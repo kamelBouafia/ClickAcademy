@@ -33,7 +33,10 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
                     };
 
                     $scope.ok = function () {
-                        //console.log('jdjhd c wdddddddddddddddd');
+                        console.log('jdjhd c wdddddddddddddddd');
+                        $scope.message="creating a Level By : ";
+                        //chat.sendMessage();
+
                         $scope.create();
                         modalInstance.close();
                     };
@@ -50,6 +53,8 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
                     }
                 }
             });
+
+
         };
 
         // Open a modal window to update a single event record
