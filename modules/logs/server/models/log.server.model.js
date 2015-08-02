@@ -23,7 +23,12 @@ var LogSchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
+	},
+	seen: {
+		type: Boolean,
+		default: false
 	}
+
 });
 
 mongoose.model('Log', LogSchema);

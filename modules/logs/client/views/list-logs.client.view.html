@@ -3,14 +3,17 @@
         <h1>Logs</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="log in logs" data-ng-href="/#!/logs/{{log._id}}" class="list-group-item">
+        <a data-ng-repeat="log in logs" data-ng-href="/#!/logs/{{log._id}}" class="list-group-item" ng-class="{seenb4: log.seen, notseenb4: !log.seen}">
+            <div ng-class="{'background-color blue;': log.seen, notseenb4: !log.seen}">
 			<small class="list-group-item-text">
 				Posted on
 				<span data-ng-bind="log.created | date:'medium'"></span>
 				by
-				<span data-ng-bind="log.user.displayName"></span>
+				<span data-ng-bind="log.user.displayName" class="notseenb4"></span>
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="log.name"></h4>
+            <h2 class="list-group-item-heading" data-ng-bind="log.seen"></h2>
+            </div>
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!logs.$resolved || logs.length">

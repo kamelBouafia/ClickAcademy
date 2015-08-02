@@ -9,7 +9,8 @@ angular.module('logs').controller('LogsController', ['$scope', '$stateParams', '
 		$scope.create = function() {
 			// Create new Log object
 			var log = new Logs ({
-				name: this.name
+				name: this.name,
+				seen: false
 			});
 
 			// Redirect after save
@@ -26,7 +27,7 @@ angular.module('logs').controller('LogsController', ['$scope', '$stateParams', '
 
 		var saveLog = function(log){
 			log.$save(function(response) {
-				$location.path('logs/' + response._id);
+
 
 				// Clear form fields
 				$scope.name = '';
@@ -36,7 +37,7 @@ angular.module('logs').controller('LogsController', ['$scope', '$stateParams', '
 		};
 		// Remove existing Log
 		$scope.remove = function( log ) {
-			if ( log ) { log.$remove();
+			/*if ( log ) { log.$remove();
 
 				for (var i in $scope.logs ) {
 					if ($scope.logs [i] === log ) {
@@ -47,19 +48,32 @@ angular.module('logs').controller('LogsController', ['$scope', '$stateParams', '
 				$scope.log.$remove(function() {
 					$location.path('logs');
 				});
-			}
+			}*/
+
+			var log = $scope.log ;
+			log.seen= true;
+
+			log.$update(function() {
+				//$location.path('logs/' + log._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
 		};
 
 		// Update existing Log
 		$scope.update = function() {
 			var log = $scope.log ;
+			log.seen= true;
 
 			log.$update(function() {
-				$location.path('logs/' + log._id);
+				//$location.path('logs/' + log._id);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
 		};
+
+
+
 
 		// Find a list of Logs
 		$scope.find = function() {
@@ -71,6 +85,7 @@ angular.module('logs').controller('LogsController', ['$scope', '$stateParams', '
 			$scope.log = Logs.get({ 
 				logId: $stateParams.logId
 			});
+
 		};
 
 
