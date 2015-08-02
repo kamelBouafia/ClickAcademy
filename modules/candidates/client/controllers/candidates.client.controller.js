@@ -78,6 +78,15 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$sta
             $event.returnValue = false;
         };
 
+        $scope.listCandidates = function (level, $event){
+            console.log('dcjh'+$stateParams.lessonId+' '+level._id);
+            $location.path('lessons/'+$stateParams.lessonId+'/levels/'+level._id+'/candidates');
+
+            if ($event.stopPropagation) $event.stopPropagation();
+            if ($event.preventDefault) $event.preventDefault();
+            $event.cancelBubble = true;
+            $event.returnValue = false;
+        };
 
         // Create new Candidate
 		$scope.create = function() {
@@ -126,7 +135,7 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$sta
 
 		// Find a list of Candidates
 		$scope.find = function() {
-			$scope.candidates = Candidates.query();
+			$scope.candidates = Candidates.query({lessonId: $stateParams.lessonId} ,{levelId: $stateParams.levelId} );
 		};
 
 		// Find existing Candidate

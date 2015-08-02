@@ -7,7 +7,7 @@ angular.module('candidates').config(['$stateProvider',
 		$stateProvider.
 		state('candidates', {
 			abstract: true,
-			url: '/candidates',
+			url: '/lessons/:lessonId/levels/:levelId/candidates',
 			template: '<ui-view/>'
 		}).
 		state('candidates.list', {
