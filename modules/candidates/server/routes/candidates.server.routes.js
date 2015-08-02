@@ -2,10 +2,12 @@
 
 module.exports = function(app) {
 	var candidates = require('../controllers/candidates.server.controller');
+    var levels = require('../../../levels/server/controllers/levels.server.controller');
+    var lessons = require('../../../lessons/server/controllers/lessons.server.controller');
 	var candidatesPolicy = require('../policies/candidates.server.policy');
 
 	// Candidates Routes
-	app.route('/api/candidates').all()
+	app.route('/api/lessons/:lessonId/api/levels/:levelId/api/candidates').all()
 		.get(candidates.list).all(candidatesPolicy.isAllowed)
 		.post(candidates.create);
 
@@ -16,4 +18,6 @@ module.exports = function(app) {
 
 	// Finish by binding the Candidate middleware
 	app.param('candidateId', candidates.candidateByID);
+    app.param('levelId', levels.levelByID);
+    app.param('lessonId', lessons.lessonByID);
 };

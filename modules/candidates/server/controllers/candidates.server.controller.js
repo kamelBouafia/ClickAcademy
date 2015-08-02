@@ -15,6 +15,9 @@ var _ = require('lodash'),
 exports.create = function(req, res) {
 	var candidate = new Candidate(req.body);
 	candidate.user = req.user;
+    candidate.lesson = req.lesson;
+    candidate.level = req.level;
+    console.log('creating a candidate :'+ candidate.level+' ');
 
 	candidate.save(function(err) {
 		if (err) {
