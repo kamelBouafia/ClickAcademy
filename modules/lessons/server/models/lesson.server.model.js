@@ -14,6 +14,7 @@ var LessonSchema = new Schema({
 		type: String,
 		default: '',
 		required: 'SLV éditez le nom du cours',
+        unique: 'testing error message',
 		trim: true
 	},
     description: {
