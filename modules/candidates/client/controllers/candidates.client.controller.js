@@ -138,7 +138,7 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$sta
         };
 
         $scope.listCandidates = function (level, $event){
-            console.log('dcjh'+$stateParams.lessonId+' '+level._id);
+            console.log('changing state into '+$stateParams.lessonId+' '+level._id);
             $location.path('lessons/'+$stateParams.lessonId+'/levels/'+level._id+'/candidates');
 
             if ($event.stopPropagation) $event.stopPropagation();
@@ -149,7 +149,8 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$sta
 
 		// Remove existing Candidate
 		$scope.remove = function( candidate ) {
-			if ( candidate ) { candidate.$remove();
+            console.log('removing '+$stateParams.lessonId+' '+$stateParams.levelId);
+            if ( candidate ) { candidate.$remove({lessonId: $stateParams.lessonId, levelId: $stateParams.levelId});
 
 				for (var i in $scope.candidates ) {
 					if ($scope.candidates [i] === candidate ) {
@@ -165,7 +166,7 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$sta
 
 		// Find a list of Candidates
 		$scope.find = function() {
-			$scope.candidates = Candidates.query({lessonId: $stateParams.lessonId} ,{levelId: $stateParams.levelId} );
+			$scope.candidates = Candidates.query({lessonId: $stateParams.lessonId, levelId: $stateParams.levelId} );
 		};
 
 		// Find existing Candidate
