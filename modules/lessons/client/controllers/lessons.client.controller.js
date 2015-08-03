@@ -1,9 +1,12 @@
 'use strict';
 
+var LessonMudule = angular.module('lessons');
+
 // Lessons controller
-angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Lessons','$modal', '$log',
-	function($scope, $stateParams, $location, Authentication, Lessons, $modal, $log) {
+LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Lessons','$modal', '$log','Logs',
+	function($scope, $stateParams, $location, Authentication, Lessons, $modal, $log, Logs) {
 		$scope.authentication = Authentication;
+
 
         this.modalCreate = function (size) {
             var modalInstance = $modal.open({
@@ -25,11 +28,42 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
                         }, function(errorResponse) {
                             $scope.error = errorResponse.data.message;
                         });
+
+                        /*var phantom = require('phantom');
+
+                       phantom.create(function (ph) {
+                            ph.createPage(function (page) {
+                                page.open("http://www.google.com", function (status) {
+                                    console.log("opened google? ", status);
+                                    page.evaluate(function () { return document.title; }, function (result) {
+                                        console.log('Page title is ' + result);
+                                        ph.exit();
+                                    });
+                                });
+                            });
+                        }); */
+
                     };
 
                     $scope.ok = function () {
                         $scope.create();
+
                         modalInstance.close();
+
+                         var log = new Logs ({
+                            name: user.firstName +' has created a lesson'
+                        });
+
+                        alert(user.firstName);
+                        log.$save(function(response) {
+                            //$location.path('logs/' + response._id);
+
+                            // Clear form fields
+                            $scope.name = '';
+                        }, function(errorResponse) {
+                            $scope.error = errorResponse.data.message;
+                        });
+
                     };
                     $scope.cancel = function () {
                         $modalInstance.dismiss('cancel');
@@ -48,8 +82,15 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
         };
 
 		// Create new Lesson
-		$scope.create = function() {
+		$scope.create = function () {
+            //wkhtmltopdf http://google.com google.pdf;
 			// Create new Lesson object
+
+
+
+
+
+
 			var lesson = new Lessons ({
 				name: this.name
 			});
@@ -103,9 +144,16 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				lessonId: $stateParams.lessonId
 			});
 		};
+
+
+
+
+
+
+
 	}
 ]);
-angular.module('lessons').directive('levelsList', ['Lessons', function(Customers, Notify){
+LessonMudule.directive('levelsList', ['Lessons', function(Customers, Notify){
     return {
         restrict :'E',
         transclude: true,
@@ -118,4 +166,42 @@ angular.module('lessons').directive('levelsList', ['Lessons', function(Customers
             });*/
         }
     };
+
+
 }]);
+
+
+
+// Create the 'chat' controller
+var chatModule = angular.module('chat');
+chatModule.controller('ChatController', ['$scope', 'Socket',
+    function($scope, Socket) {
+        // Create a messages array
+        $scope.messages = [];
+
+        // Add an event listener to the 'chatMessage' event
+        Socket.on('chatMessage', function(message) {
+            $scope.messages.unshift(message);
+        });
+
+        // Create a controller method for sending messages
+        $scope.sendMessage = function() {
+            // Create a new message object
+            var message = {
+                text: this.messageText
+            };
+
+            // Emit a 'chatMessage' message event
+            Socket.emit('chatMessage', message);
+
+            // Clear the message text
+            this.messageText = '';
+        };
+
+        // Remove the event listener when the controller instance is destroyed
+        $scope.$on('$destroy', function() {
+            Socket.removeListener('chatMessage');
+        });
+
+    }
+]);
