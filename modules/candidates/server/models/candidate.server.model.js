@@ -32,6 +32,10 @@ var CandidateSchema = new Schema({
         }],
         default: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
     },
+    active: {
+        type: Boolean,
+        default:false
+    },
 
     lesson: {
         type: Schema.ObjectId,

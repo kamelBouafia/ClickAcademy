@@ -76,7 +76,11 @@ exports.delete = function(req, res) {
 /**
  * List of Candidates
  */
-exports.list = function(req, res) { Candidate.find().sort('-created').populate('user', 'displayName').exec(function(err, candidates) {
+exports.list = function(req, res) {
+    console.log('listing candidates : '+req.lesson._id+' '+req.level._id);
+    Candidate
+        .find({$and : [{lesson : req.lesson._id},{level : req.level._id},{active : false}]})
+        .sort('-created').populate('user', 'displayName').exec(function(err, candidates) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

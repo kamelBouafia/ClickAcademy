@@ -5,8 +5,6 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$sta
 	function($scope, $stateParams, $location, Authentication, Candidates ,$modal) {
 		$scope.authentication = Authentication;
 
-
-
         this.modalCreate = function (selectedLevel, $event) {
             var modalInstance = $modal.open({
                 animation: $scope.animationsEnabled,
@@ -78,6 +76,67 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$sta
             $event.returnValue = false;
         };
 
+        // Open a modal window to update a single event record
+        this.modalUpdate = function( selectedCandidate){
+            //console.log("yow yow from modalUpdate");
+            var modalInstance = $modal.open({
+                templateUrl:'modules/candidates/views/edit-candidate.client.view.html',
+                controller: function($scope, $modalInstance, candidate) {
+                    $scope.candidate = candidate;
+
+                    $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}$/;
+                    $scope.days = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+                    // selected days
+                    $scope.selection = candidate.disponibilite;
+                    // toggle selection for a given day by name
+                    $scope.toggleSelection = function toggleSelection(dayName) {
+                        var idx = $scope.selection.indexOf(dayName);
+                        // is currently selected
+                        if (idx > -1) {
+                            $scope.selection.splice(idx, 1);
+                        }
+                        // is newly selected
+                        else {
+                            $scope.selection.push(dayName);
+                        }
+                    };
+
+                    // Update existing Level
+                    $scope.update = function() {
+
+                        var candidate = $scope.candidate ;
+
+                        candidate.$update( {lessonId: candidate.lesson, levelId: candidate.level},
+                            function(response) {
+                                //$location.path('levels/' + level._id);
+                            }, function(errorResponse) {
+                                $scope.error = errorResponse.data.message;
+                            }
+                        );
+                    };
+
+                    $scope.ok = function () {
+                        $scope.update();
+                        modalInstance.close($scope.level);
+                    };
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                },
+                resolve: {
+                    candidate: function(){
+                        return selectedCandidate;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function (){
+                //$log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+
         $scope.listCandidates = function (level, $event){
             console.log('dcjh'+$stateParams.lessonId+' '+level._id);
             $location.path('lessons/'+$stateParams.lessonId+'/levels/'+level._id+'/candidates');
@@ -87,24 +146,6 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$sta
             $event.cancelBubble = true;
             $event.returnValue = false;
         };
-
-        // Create new Candidate
-		$scope.create = function() {
-			// Create new Candidate object
-			var candidate = new Candidates ({
-				name: this.name
-			});
-
-			// Redirect after save
-			candidate.$save(function(response) {
-				$location.path('candidates/' + response._id);
-
-				// Clear form fields
-				$scope.name = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
 
 		// Remove existing Candidate
 		$scope.remove = function( candidate ) {
@@ -120,17 +161,6 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$sta
 					$location.path('candidates');
 				});
 			}
-		};
-
-		// Update existing Candidate
-		$scope.update = function() {
-			var candidate = $scope.candidate ;
-
-			candidate.$update(function() {
-				$location.path('candidates/' + candidate._id);
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
 		};
 
 		// Find a list of Candidates

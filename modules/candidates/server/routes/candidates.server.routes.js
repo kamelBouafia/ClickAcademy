@@ -11,7 +11,7 @@ module.exports = function(app) {
 		.get(candidates.list).all(candidatesPolicy.isAllowed)
 		.post(candidates.create);
 
-	app.route('/api/candidates/:candidateId').all(candidatesPolicy.isAllowed)
+	app.route('/api/lessons/:lessonId/api/levels/:levelId/api/candidates/:candidateId').all(candidatesPolicy.isAllowed)
 		.get(candidates.read)
 		.put(candidates.update)
 		.delete(candidates.delete);
