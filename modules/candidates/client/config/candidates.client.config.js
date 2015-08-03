@@ -4,7 +4,7 @@
 angular.module('candidates').run(['Menus',
 	function(Menus) {
 		// Add the Candidates dropdown item
-		Menus.addMenuItem('topbar', {
+		/*Menus.addMenuItem('topbar', {
 			title: 'Candidates',
 			state: 'candidates',
 			type: 'dropdown'
@@ -20,6 +20,6 @@ angular.module('candidates').run(['Menus',
 		Menus.addSubMenuItem('topbar', 'candidates', {
 			title: 'Create Candidate',
 			state: 'candidates.create'
-		});
+		});*/
 	}
 ]);
