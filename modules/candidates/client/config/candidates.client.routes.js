@@ -26,5 +26,15 @@ angular.module('candidates').config(['$stateProvider',
 			url: '/:candidateId/edit',
 			templateUrl: 'modules/candidates/views/edit-candidate.client.view.html'
 		});
+        $stateProvider.
+            state('all-candidates', {
+                abstract: true,
+                url: '/candidates',
+                template: '<ui-view/>'
+            }).
+            state('all-candidates.list', {
+                url: '',
+                templateUrl: 'modules/candidates/views/list-all-candidates.client.view.html'
+            });
 	}
 ]);

@@ -1,8 +1,8 @@
 'use strict';
 
 // Candidates controller
-angular.module('candidates').controller('CandidatesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Candidates', '$modal',
-	function($scope, $stateParams, $location, Authentication, Candidates ,$modal) {
+angular.module('candidates').controller('CandidatesController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Candidates', '$modal',
+	function($scope, $http, $stateParams, $location, Authentication, Candidates ,$modal) {
 		$scope.authentication = Authentication;
 
         this.modalCreate = function (selectedLevel, $event) {
@@ -169,9 +169,18 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$sta
 			$scope.candidates = Candidates.query({lessonId: $stateParams.lessonId, levelId: $stateParams.levelId} );
 		};
 
+        // Find a list of Candidates
+        $scope.findAll = function() {
+            $http.get('/api/candidates/')
+                .success(function (response) {
+                    $scope.candidatesList = response;
+                    //console.log('get all list of candidates '+response.length);
+            });
+        };
+
 		// Find existing Candidate
 		$scope.findOne = function() {
-			$scope.candidate = Candidates.get({ 
+			$scope.candidate = Candidates.get({
 				candidateId: $stateParams.candidateId
 			});
 		};
