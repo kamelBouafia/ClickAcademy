@@ -179,11 +179,11 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
         };
         // Find a list of Candidates for a lesson
         $scope.findLesson = function() {
-            console.log('get list of candidates for a lesson '+$stateParams.lessonId);
+            //console.log('get list of candidates for a lesson '+$stateParams.lessonId);
             $http.get('/api/lessons/'+$stateParams.lessonId+'/api/candidates/')
                 .success(function (response) {
                     $scope.candidatesList = response;
-                    //console.log('get all list of candidates '+response.length);
+                    $scope.coursName = response[0].lesson.name;
                 });
         };
 

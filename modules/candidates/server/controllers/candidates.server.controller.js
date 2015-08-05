@@ -97,7 +97,11 @@ exports.list = function(req, res) {
 exports.listAll = function(req, res) {
     Candidate
         .find({active : false})
-        .sort('-created').populate('user', 'displayName').exec(function(err, candidates) {
+        .sort('-created')
+        .populate('user', 'displayName')
+        .populate('lesson', 'name')
+        .populate('level', 'name')
+        .exec(function(err, candidates) {
             if (err) {
                 return res.status(400).send({
                     message: errorHandler.getErrorMessage(err)
@@ -114,7 +118,11 @@ exports.listAll = function(req, res) {
 exports.listLesson = function(req, res) {
     Candidate
         .find({$and : [{lesson : req.lesson._id},{active : false}]})
-        .sort('-created').populate('user', 'displayName').exec(function(err, candidates) {
+        .sort('-created')
+        .populate('user', 'displayName')
+        .populate('lesson', 'name')
+        .populate('level', 'name')
+        .exec(function(err, candidates) {
             if (err) {
                 return res.status(400).send({
                     message: errorHandler.getErrorMessage(err)
