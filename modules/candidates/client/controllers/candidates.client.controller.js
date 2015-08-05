@@ -164,7 +164,7 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
 			}
 		};
 
-		// Find a list of Candidates
+		// Find a list of Candidates for a single level
 		$scope.find = function() {
 			$scope.candidates = Candidates.query({lessonId: $stateParams.lessonId, levelId: $stateParams.levelId} );
 		};
@@ -176,6 +176,15 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
                     $scope.candidatesList = response;
                     //console.log('get all list of candidates '+response.length);
             });
+        };
+        // Find a list of Candidates for a lesson
+        $scope.findLesson = function() {
+            console.log('get list of candidates for a lesson '+$stateParams.lessonId);
+            $http.get('/api/lessons/'+$stateParams.lessonId+'/api/candidates/')
+                .success(function (response) {
+                    $scope.candidatesList = response;
+                    //console.log('get all list of candidates '+response.length);
+                });
         };
 
 		// Find existing Candidate

@@ -109,6 +109,23 @@ exports.listAll = function(req, res) {
 };
 
 /**
+ * List of Candidates for a lesson
+ */
+exports.listLesson = function(req, res) {
+    Candidate
+        .find({$and : [{lesson : req.lesson._id},{active : false}]})
+        .sort('-created').populate('user', 'displayName').exec(function(err, candidates) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(candidates);
+            }
+        });
+};
+
+/**
  * Candidate middleware
  */
 exports.candidateByID = function(req, res, next, id) { Candidate.findById(id).populate('user', 'displayName').exec(function(err, candidate) {
