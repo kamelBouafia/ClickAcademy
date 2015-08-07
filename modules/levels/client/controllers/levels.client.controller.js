@@ -1,8 +1,8 @@
 'use strict';
 
 // Levels controller
-angular.module('levels').controller('LevelsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Levels', '$modal',
-	function($scope, $http, $stateParams, $location, Authentication, Levels, $modal ) {
+angular.module('levels').controller('LevelsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Levels', '$modal','Logs',
+	function($scope, $http, $stateParams, $location, Authentication, Levels, $modal ,Logs) {
 		$scope.authentication = Authentication;
 
         this.modalCreate = function (selectedLesson) {
@@ -22,6 +22,22 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
                         // Redirect after save
                         level.$save({lessonId: lesson._id},
                             function(response) {
+
+                                var log = new Logs ({
+                                    name: user.firstName +' a crée le Niveau: ' + $scope.name,
+                                    description: $scope.description
+                                });
+//
+
+                                log.$save(function(response) {
+                                    //$location.path('logs/' + response._id);
+
+                                    // Clear form fields
+                                    $scope.name = '';
+                                }, function(errorResponse) {
+                                    $scope.error = errorResponse.data.message;
+                                });
+
                                 //console.log('yow yow level has been created ');
                                 //parentScope.find();
                                 parentScope.levels.push(response);
@@ -113,7 +129,22 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
 
         // Remove existing Level
 		$scope.remove = function( level ) {
-			if ( level ) { level.$remove();
+			if ( level ) {
+                var log = new Logs ({
+                    name: user.firstName +' a supprimé le Niveau: ' + lesson.name
+
+                });
+//
+
+                log.$save(function(response) {
+
+                    // alert(lesson.name);
+
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
+
+                level.$remove();
 
 				for (var i in $scope.levels ) {
 					if ($scope.levels [i] === level ) {

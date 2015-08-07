@@ -1,8 +1,8 @@
 'use strict';
 
 // Logs controller
-angular.module('logs').controller('LogsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Logs','Socket',
-	function($scope, $stateParams, $location, Authentication, Logs, Socket ) {
+angular.module('logs').controller('LogsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Logs',
+	function($scope, $stateParams, $location, Authentication, Logs) {
 		$scope.authentication = Authentication;
 
 		// Create new Log
@@ -73,9 +73,25 @@ angular.module('logs').controller('LogsController', ['$scope', '$stateParams', '
 			});
 		};
 
-
-
-
+		$scope.mark = function(log){
+			log.seen = true;
+			log.$update(function() {
+				//$location.path('logs/' + log._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
 
 		}
+
+
+
+
+		/*Socket.on('send', function(data) {
+			alert("received :" + data);
+		});
+*/
+
+		}
+
+
 ]);

@@ -3,15 +3,26 @@
         <h1>Logs</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="log in logs" data-ng-href="/#!/logs/{{log._id}}" class="list-group-item">
+
+        <div data-ng-repeat="log in logs">
+            <div class="col-sm-12" style="padding-right: 0" >
+        <a  data-ng-href="/#!/logs/{{log._id}}" class="list-group-item" style="padding-right: 0" ng-click="mark(log);" ng-class="{highlighted: !log.seen}">
+
 			<small class="list-group-item-text">
 				Posted on
 				<span data-ng-bind="log.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="log.user.displayName"></span>
-			</small>
+
+                </small>
 			<h4 class="list-group-item-heading" data-ng-bind="log.name"></h4>
         </a>
+            </div>
+            <!--<div class="col-sm-2"  style="padding-left: 0 ; margin-top: 10px;" >
+                <a class="btn btn-primary" data-ng-click="remove(log);">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+
+            </div>-->
+        </div>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!logs.$resolved || logs.length">
     	No Logs yet, why don't you <a href="/#!/logs/create">create one</a>?

@@ -1,9 +1,10 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope','$http','$modal','Authentication',
-	function($scope,$http , $modal, Authentication) {
+angular.module('core').controller('HomeController', ['$scope','$http','$modal','Authentication','Socket',
+	function($scope,$http , $modal, Authentication, Socket) {
 		// This provides Authentication context.
         $scope.authentication = Authentication;
+
 
         /**/
 
@@ -50,5 +51,8 @@ angular.module('core').controller('SignupController',['$scope','$location','$htt
                 $scope.error = response.message;
             });
         };
+
+
+
 
 }]);
