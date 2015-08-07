@@ -41,7 +41,7 @@ LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$locati
                         modalInstance.close();
 
                          var log = new Logs ({
-                            name: user.firstName +' a creé la leçon: ' + $scope.name,
+                            name: user.firstName +' a creé la leçon: ' + $scope.name ,
                              description: $scope.description
                         });
 //
