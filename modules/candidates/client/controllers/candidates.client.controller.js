@@ -1,8 +1,8 @@
 'use strict';
 
 // Candidates controller
-angular.module('candidates').controller('CandidatesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Candidates', '$modal',
-	function($scope, $stateParams, $location, Authentication, Candidates ,$modal) {
+angular.module('candidates').controller('CandidatesController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Candidates', '$modal',
+	function($scope, $http, $stateParams, $location, Authentication, Candidates ,$modal) {
 		$scope.authentication = Authentication;
 
         this.modalCreate = function (selectedLevel, $event) {
@@ -164,14 +164,32 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$sta
 			}
 		};
 
-		// Find a list of Candidates
+		// Find a list of Candidates for a single level
 		$scope.find = function() {
 			$scope.candidates = Candidates.query({lessonId: $stateParams.lessonId, levelId: $stateParams.levelId} );
 		};
 
+        // Find a list of Candidates
+        $scope.findAll = function() {
+            $http.get('/api/candidates/')
+                .success(function (response) {
+                    $scope.candidatesList = response;
+                    //console.log('get all list of candidates '+response.length);
+            });
+        };
+        // Find a list of Candidates for a lesson
+        $scope.findLesson = function() {
+            //console.log('get list of candidates for a lesson '+$stateParams.lessonId);
+            $http.get('/api/lessons/'+$stateParams.lessonId+'/api/candidates/')
+                .success(function (response) {
+                    $scope.candidatesList = response;
+                    $scope.coursName = response[0].lesson.name;
+                });
+        };
+
 		// Find existing Candidate
 		$scope.findOne = function() {
-			$scope.candidate = Candidates.get({ 
+			$scope.candidate = Candidates.get({
 				candidateId: $stateParams.candidateId
 			});
 		};
