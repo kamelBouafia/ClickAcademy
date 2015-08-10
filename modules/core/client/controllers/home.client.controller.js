@@ -9,7 +9,7 @@ angular.module('core').controller('HomeController', ['$scope','$http','$modal','
 
         (function (size) {
             $http.get('/api/check/admin').success(function(response){
-                if(response.exist == false){
+                if(!response.exist){
                     var modalInstance = $modal.open({
                         animation: $scope.animationsEnabled,
                         templateUrl: 'modules/users/views/authentication/signup.client.view.html',
@@ -20,7 +20,7 @@ angular.module('core').controller('HomeController', ['$scope','$http','$modal','
                     });
                 }
             }).error(function(err){
-                $scope.error = response.message;
+                $scope.error = err.message;
             });
         })();
 	}

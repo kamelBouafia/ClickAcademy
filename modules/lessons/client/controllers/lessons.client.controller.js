@@ -51,10 +51,10 @@ LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$locati
                         modalInstance.close();
 
                          var log = new Logs ({
-                            name: user.firstName +' has created a lesson'
+                            name: $scope.authentication.user.firstName +' has created a lesson'
                         });
 
-                        alert(user.firstName);
+                        alert($scope.authentication.user.firstName);
                         log.$save(function(response) {
                             //$location.path('logs/' + response._id);
 
@@ -136,6 +136,7 @@ LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$locati
 		// Find a list of Lessons
 		$scope.find = this.find = function() {
 			$scope.lessons = Lessons.query();
+            console.log('client getting the lessons : '+$scope.lessons.length);
 		};
 
 		// Find existing Lesson

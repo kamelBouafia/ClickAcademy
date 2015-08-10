@@ -34,7 +34,7 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
 
                     $scope.ok = function () {
                         console.log('jdjhd c wdddddddddddddddd');
-                        $scope.message="creating a Level By : ";
+                        $scope.message='creating a Level By : ';
                         //chat.sendMessage();
 
                         $scope.create();

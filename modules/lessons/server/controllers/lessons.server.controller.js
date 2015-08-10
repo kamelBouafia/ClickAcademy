@@ -79,6 +79,7 @@ exports.list = function(req, res) { Lesson.find().sort('created').populate('user
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+            //console.log('yow yow '+ lessons.length);
 			res.jsonp(lessons);
 		}
 	});
