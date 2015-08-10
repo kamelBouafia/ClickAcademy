@@ -74,7 +74,7 @@ exports.delete = function(req, res) {
 };
 
 /**
- * List of Candidates
+ * List of Candidates for a given level
  */
 exports.list = function(req, res) {
     console.log('listing candidates : '+req.lesson._id+' '+req.level._id);
@@ -89,6 +89,48 @@ exports.list = function(req, res) {
 			res.jsonp(candidates);
 		}
 	});
+};
+
+/**
+ * List of Candidates
+ */
+exports.listAll = function(req, res) {
+    Candidate
+        .find({active : false})
+        .sort('-created')
+        .populate('user', 'displayName')
+        .populate('lesson', 'name')
+        .populate('level', 'name')
+        .exec(function(err, candidates) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(candidates);
+            }
+        });
+};
+
+/**
+ * List of Candidates for a lesson
+ */
+exports.listLesson = function(req, res) {
+    Candidate
+        .find({$and : [{lesson : req.lesson._id},{active : false}]})
+        .sort('-created')
+        .populate('user', 'displayName')
+        .populate('lesson', 'name')
+        .populate('level', 'name')
+        .exec(function(err, candidates) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(candidates);
+            }
+        });
 };
 
 /**
