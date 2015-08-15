@@ -25,7 +25,7 @@ exports.invokeRolesPolicies = function() {
 		roles: ['user'],
 		allows: [{
 			resources: '/api/logs',
-			permissions: ['get', 'post']
+			permissions: ['post']//['get', 'post']
 		}, {
 			resources: '/api/logs/:logId',
 			permissions: ['get']
@@ -37,7 +37,7 @@ exports.invokeRolesPolicies = function() {
 			permissions: ['get']
 		}, {
 			resources: '/api/logs/:logId',
-			permissions: ['get']
+			permissions:['get']
 		}]
 	}]);
 };
