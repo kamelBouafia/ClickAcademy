@@ -23,6 +23,8 @@ exports.create = function(req, res) {
 			});
 		} else {
 			res.jsonp(lesson);
+
+
 		}
 	});
 };
@@ -95,3 +97,27 @@ exports.lessonByID = function(req, res, next, id) { Lesson.findById(id).populate
 		next();
 	});
 };
+
+
+exports.logging = function(io, socket) {
+	// Emit the status event when a new socket client is connected
+	io.emit('sendMsg', {
+
+		text: 'Is now connected'
+
+	});
+
+	// Send a chat messages to all connected sockets when a message is received
+	socket.on('sendMsg', function(message) {
+		/*message.type = 'message';
+		message.created = Date.now();
+		message.profileImageURL = socket.request.user.profileImageURL;
+		message.username = socket.request.user.username;*/
+
+		// Emit the 'chatMessage' event
+		io.emit('chatMessage', message);
+	});
+
+
+};
+

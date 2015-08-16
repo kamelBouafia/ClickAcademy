@@ -3,10 +3,9 @@
 var LessonMudule = angular.module('lessons');
 
 // Lessons controller
-LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Lessons','$modal', '$log','Logs',
-	function($scope, $stateParams, $location, Authentication, Lessons, $modal, $log, Logs) {
+LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Lessons','$modal', '$log','Logs','Socket',
+	function($scope, $stateParams, $location, Authentication, Lessons, $modal, $log, Logs, Socket) {
 		$scope.authentication = Authentication;
-
 
         this.modalCreate = function (size) {
             var modalInstance = $modal.open({
@@ -25,23 +24,11 @@ LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$locati
                         lesson.$save(function(response) {
                             //console.log("yow yow event has been created ");
                             parentScope.find();
+                            //Socket.emit('send', "creating lesson");
                         }, function(errorResponse) {
                             $scope.error = errorResponse.data.message;
                         });
 
-                        /*var phantom = require('phantom');
-
-                       phantom.create(function (ph) {
-                            ph.createPage(function (page) {
-                                page.open("http://www.google.com", function (status) {
-                                    console.log("opened google? ", status);
-                                    page.evaluate(function () { return document.title; }, function (result) {
-                                        console.log('Page title is ' + result);
-                                        ph.exit();
-                                    });
-                                });
-                            });
-                        }); */
 
                     };
 
@@ -51,10 +38,11 @@ LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$locati
                         modalInstance.close();
 
                          var log = new Logs ({
-                            name: $scope.authentication.user.firstName +' has created a lesson'
+                            name: user.firstName +' a creé la leçon: ' + $scope.name ,
+                             description: $scope.description
                         });
 
-                        alert($scope.authentication.user.firstName);
+                        alert(user.firstName);
                         log.$save(function(response) {
                             //$location.path('logs/' + response._id);
 
@@ -108,9 +96,29 @@ LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$locati
 
 		// Remove existing Lesson
 		$scope.remove = function( lesson ) {
-			if ( lesson ) { lesson.$remove();
+			if ( lesson ) {
 
-				for (var i in $scope.lessons ) {
+                var log = new Logs ({
+                    name: user.firstName +' a supprimé la leçon: ' + lesson.name
+
+                });
+//
+
+                log.$save(function(response) {
+
+                   // alert(lesson.name);
+
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
+
+                lesson.$remove();
+
+                $location.path('lessons');
+                $scope.lessons= this.find();
+
+
+                for (var i in $scope.lessons ) {
 					if ($scope.lessons [i] === lesson ) {
 						$scope.lessons.splice(i, 1);
 					}
@@ -135,6 +143,8 @@ LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$locati
 
 		// Find a list of Lessons
 		$scope.find = this.find = function() {
+            Socket.emit('sendMsg', 'something to be sent');
+            console.log("sending : ");
 			$scope.lessons = Lessons.query();
             console.log('client getting the lessons : '+$scope.lessons.length);
 		};
@@ -145,6 +155,22 @@ LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$locati
 				lessonId: $stateParams.lessonId
 			});
 		};
+
+        Socket.on('sendMsg', function(message) {
+            console.log("receiving : "+ message);
+        });
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 ]);
 LessonMudule.directive('levelsList', ['Lessons', function(Customers, Notify){

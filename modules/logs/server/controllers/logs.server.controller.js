@@ -94,3 +94,4 @@ exports.logByID = function(req, res, next, id) { Log.findById(id).populate('user
 		next();
 	});
 };
+

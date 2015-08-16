@@ -28,3 +28,4 @@ angular.module('lessons').config(['$stateProvider',
 		});
 	}
 ]);
+

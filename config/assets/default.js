@@ -15,7 +15,8 @@ module.exports = {
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
                 'public/lib/ng-file-upload/ng-file-upload.js',
-                'public/lib/ng-file-upload-shim/ng-file-upload-shim.js'
+                'public/lib/ng-file-upload-shim/ng-file-upload-shim.js',
+				'public/lib/ng-socket-io/ng-socket-io.js'
 			],
 			tests: ['public/lib/angular-mocks/angular-mocks.js']
 		},

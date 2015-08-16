@@ -23,6 +23,14 @@ var LogSchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
+	},
+	seen: {
+		type: Boolean,
+		default: false
+	},
+	description: {
+		type: String,
+		default: 'description non disponible'
 	}
 });
 

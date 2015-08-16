@@ -1,5 +1,6 @@
 'use strict';
 
+var cours = '';
 // Candidates controller
 angular.module('candidates').controller('CandidatesController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Candidates', '$modal',
 	function($scope, $http, $stateParams, $location, Authentication, Candidates ,$modal) {
@@ -195,5 +196,13 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
 				candidateId: $stateParams.candidateId
 			});
 		};
+        $scope.toHTML = function() {
+
+                //cours = $scope.coursName;
+                console.log('$scope is being passed to printing function = '+ cours);
+                pdfToHTML($scope);
+        };
+
+
 	}
 ]);
