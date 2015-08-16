@@ -137,6 +137,7 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
             });
         };
 
+        // Changing state into candidate.list
         $scope.listCandidates = function (level, $event){
             console.log('changing state into '+$stateParams.lessonId+' '+level._id);
             $location.path('lessons/'+$stateParams.lessonId+'/levels/'+level._id+'/candidates');
@@ -146,6 +147,7 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
             $event.cancelBubble = true;
             $event.returnValue = false;
         };
+
 
 		// Remove existing Candidate
 		$scope.remove = function( candidate ) {

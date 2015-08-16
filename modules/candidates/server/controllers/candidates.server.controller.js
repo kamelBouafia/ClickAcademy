@@ -136,7 +136,12 @@ exports.listLesson = function(req, res) {
 /**
  * Candidate middleware
  */
-exports.candidateByID = function(req, res, next, id) { Candidate.findById(id).populate('user', 'displayName').exec(function(err, candidate) {
+exports.candidateByID = function(req, res, next, id) {
+    Candidate.findById(id)
+        .populate('user', 'displayName')
+        .populate('lesson', 'name')
+        .populate('level', 'name')
+        .exec(function(err, candidate) {
 		if (err) return next(err);
 		if (! candidate) return next(new Error('Failed to load Candidate ' + id));
 		req.candidate = candidate ;

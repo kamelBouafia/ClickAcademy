@@ -145,13 +145,6 @@ LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$locati
 				lessonId: $stateParams.lessonId
 			});
 		};
-
-
-
-
-
-
-
 	}
 ]);
 LessonMudule.directive('levelsList', ['Lessons', function(Customers, Notify){
