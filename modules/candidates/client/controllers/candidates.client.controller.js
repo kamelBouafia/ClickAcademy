@@ -202,7 +202,5 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
                 console.log('$scope is being passed to printing function = '+ cours);
                 pdfToHTML($scope);
         };
-
-
 	}
 ]);
