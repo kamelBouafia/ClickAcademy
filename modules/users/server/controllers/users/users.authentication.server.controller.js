@@ -45,7 +45,7 @@ exports.signup = function(req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         }else{
-            if(Users.length === 0){
+            if(Users.length == 0){
                 user.roles.push('admin');
             }
             user.save(function(err) {
@@ -57,12 +57,20 @@ exports.signup = function(req, res) {
                     // Remove sensitive data before login
                     user.password = undefined;
                     user.salt = undefined;
-
-                    req.login(user, function(err) {
-                        if (err) {
-                            res.status(400).send(err);
-                        } else {
-                            res.json(user);
+                    User.find().exec(function(err,Users){
+                        if(err){
+                            return res.status(400).send({
+                                message:errorHandler.getErrorMessage(err)
+                            });
+                        }
+                        if(Users.length ==1){
+                            req.login(user, function(err) {
+                                if (err) {
+                                    res.status(400).send(err);
+                                } else {
+                                    res.json(user);
+                                }
+                            });
                         }
                     });
                 }
