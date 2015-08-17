@@ -71,9 +71,18 @@ angular.module('agents').controller('SignupAgent',['$scope','$http','$modalInsta
             $http.post('/api/add/addAgent', $scope.credentials).success(function(response) {
                 // If successful we assign the response to the global user model
                 $scope.cancel();
-                this.find();
+                $scope.find();
             }).error(function(response) {
                 $scope.error = response.message;
+            });
+        };
+
+        $scope.find = function() {
+            $http.get('/api/users/listUsers',{ params:{role:'agent'}
+            }).success(function(response){
+                $scope.agents = response;
+            }).error(function(response){
+                $scope.error=response.message;
             });
         };
 
