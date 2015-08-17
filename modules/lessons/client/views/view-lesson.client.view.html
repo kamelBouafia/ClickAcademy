@@ -1,6 +1,6 @@
 <section data-ng-controller="LessonsController" data-ng-init="findOne()">
 	<div class="page-header">
-		<h1 data-ng-bind="lesson.name"></h1>
+		<h1 data-ng-bind="'Le cours '+lesson.name"></h1>
         <h4 class="text-muted" data-ng-bind="lesson.description"></h4>
 	</div>
 	<div class="pull-right" data-ng-show="authentication.user._id == lesson.user._id">
@@ -25,7 +25,5 @@
 		</em>
 	</small>
     <levels-list></levels-list>
-
-
 
 </section>

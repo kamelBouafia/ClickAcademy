@@ -42,6 +42,15 @@ exports.invokeRolesPolicies = function() {
     }, {
         roles: ['user'],
         allows: [{
+            resources: '/api/formations/:formationId/api/candidates',
+            permissions: ['get']
+        }, {
+            resources: '/api/formations/:formationId/api/candidates/:candidateId',
+            permissions: ['*']
+        }]
+    }, {
+        roles: ['user'],
+        allows: [{
             resources: '/api/lessons/:lessonId/api/candidates',
             permissions: ['get']
         }, {

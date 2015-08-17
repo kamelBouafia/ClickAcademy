@@ -21,11 +21,11 @@ exports.adminExist = function(req,res){
                 message: errorHandler.getErrorMessage(err)
             });
         }else{
-            if(Users.length !=0) res.jsonp({exist:true});
+            if(Users.length !==0) res.jsonp({exist:true});
             else res.jsonp({exist:false});
         }
     });
-}
+};
 
 exports.signup = function(req, res) {
 	// For security measurement we remove the roles from the req.body object

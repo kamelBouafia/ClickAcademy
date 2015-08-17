@@ -138,6 +138,7 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
             });
         };
 
+        // Changing state into candidate.list
         $scope.listCandidates = function (level, $event){
             console.log('changing state into '+$stateParams.lessonId+' '+level._id);
             $location.path('lessons/'+$stateParams.lessonId+'/levels/'+level._id+'/candidates');
@@ -147,6 +148,7 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
             $event.cancelBubble = true;
             $event.returnValue = false;
         };
+
 
 		// Remove existing Candidate
 		$scope.remove = function( candidate ) {
@@ -165,6 +167,14 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
 			}
 		};
 
+        // Find a level
+        $scope.findLevel = function() {
+            console.log('get the curent level '+$stateParams.levelId);
+            $http.get('/api/lessons/'+$stateParams.lessonId+'/api/levels/'+$stateParams.levelId)
+                .success(function (response) {
+                    $scope.curentLevel = response;
+                });
+        };
 		// Find a list of Candidates for a single level
 		$scope.find = function() {
 			$scope.candidates = Candidates.query({lessonId: $stateParams.lessonId, levelId: $stateParams.levelId} );
@@ -187,6 +197,15 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
                     $scope.coursName = response[0].lesson.name;
                 });
         };
+        // Find a list of Candidates for a lesson
+        $scope.findFormation = function() {
+            console.log('get list of candidates for a formation '+$stateParams.formationId);
+            $http.get('/api/formations/'+$stateParams.formationId+'/api/candidates/')
+                .success(function (response) {
+                    $scope.candidatesList = response;
+                    $scope.formationName = response[0].formation.name;
+                });
+        };
 
 		// Find existing Candidate
 		$scope.findOne = function() {
@@ -200,7 +219,5 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
                 console.log('$scope is being passed to printing function = '+ cours);
                 pdfToHTML($scope);
         };
-
-
 	}
 ]);

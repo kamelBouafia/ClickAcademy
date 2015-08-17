@@ -1,0 +1,27 @@
+<section data-ng-controller="FormationsController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1 data-ng-bind="formation.name"></h1>
+	</div>
+	<div class="pull-right" data-ng-show="authentication.user._id == formation.user._id">
+		<a class="btn btn-primary" href="/#!/formations/{{formation._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+    <span class="pull-right" data-ng-controller="CandidatesController">
+        <a class="btn btn-primary" href="/#!/formations/{{formation._id}}/candidates">
+            voir liste des étudiant préinscris
+        </a>
+    </span>
+	<small>
+		<em class="text-muted">
+			Posted on
+			<span data-ng-bind="formation.created | date:'mediumDate'"></span>
+			by
+			<span data-ng-bind="formation.user.displayName"></span>
+		</em>
+	</small>
+    <lessons-list></lessons-list>
+</section>

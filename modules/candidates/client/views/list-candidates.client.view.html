@@ -1,6 +1,6 @@
-<section data-ng-controller="CandidatesController as CandidatesCtrl" data-ng-init="find()">
+<section data-ng-controller="CandidatesController as CandidatesCtrl" data-ng-init="findLevel(); find()">
     <div class="page-header">
-        <h1>Candidats</h1>
+        <h1>Candidats pour le niveau </h1>
     </div>
     <div class="list-group" id="printable">
         <a data-ng-repeat="candidate in candidates"  class="list-group-item">
@@ -10,6 +10,9 @@
                 </button>
                 <button class="btn btn-primary" data-ng-click="remove(candidate)">
                     Supprimer
+                </button>
+                <button data-ng-controller="StudentsController" class="btn btn-primary" data-ng-click="createStudent(candidate)">
+                    Inscrire
                 </button>
             </span>
             <small class="list-group-item-text">

@@ -2,10 +2,11 @@
 
 module.exports = function(app) {
 	var lessons = require('../controllers/lessons.server.controller');
+    var formations = require('../../../formations/server/controllers/formations.server.controller');
 	var lessonsPolicy = require('../policies/lessons.server.policy');
 
 	// Lessons Routes
-	app.route('/api/lessons').all()
+	app.route('/api/formations/:formationId/api/lessons').all()
 		.get(lessons.list).all(lessonsPolicy.isAllowed)
 		.post(lessons.create);
 
@@ -16,4 +17,5 @@ module.exports = function(app) {
 
 	// Finish by binding the Lesson middleware
 	app.param('lessonId', lessons.lessonByID);
+    app.param('formationId', formations.formationByID);
 };
