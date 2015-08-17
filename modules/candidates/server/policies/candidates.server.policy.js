@@ -22,10 +22,10 @@ exports.invokeRolesPolicies = function() {
 			permissions: '*'
 		}]
 	}, {
-		roles: ['user'],
+		roles: ['admin'],
 		allows: [{
 			resources: '/api/lessons/:lessonId/api/levels/:levelId/api/candidates',
-			permissions: ['get', 'post']
+			permissions: ['*']
 		}, {
 			resources: '/api/lessons/:lessonId/api/levels/:levelId/api/candidates/:candidateId',
 			permissions: ['*']
