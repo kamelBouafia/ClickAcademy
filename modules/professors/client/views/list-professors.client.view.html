@@ -1,0 +1,29 @@
+<section data-ng-controller= "ProfessorsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Prefessors</h1>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="professor in professors">
+            <td>
+                <button class="btn" ng-click=" ">
+                    <span class="glyphicon glyphicon-pencil"></span>  Edit
+                </button>
+            </td>
+            <td>{{ professor.firstName }}</td>
+            <td>{{ professor.lastName }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <button class="btn btn-success" ng-click="open('lg')">create new Professor</button>
+</section>

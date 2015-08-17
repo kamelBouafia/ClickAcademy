@@ -14,6 +14,8 @@ var _ = require('lodash'),
 initUser = function(req,res){
     delete req.body.roles;
     var user = new User(req.body);
+    user.provider = 'local';
+    user.displayName = user.firstName + ' ' + user.lastName;
     return user;
 }
 
@@ -25,9 +27,10 @@ saveUser = function(res,user){
             });
         }
         else{
+            console.log(user)
             res.jsonp(user);
         }
-    })
+    });
 }
 
 exports.addProf = function(req,res){
@@ -36,15 +39,17 @@ exports.addProf = function(req,res){
     saveUser(res,user);
 }
 
-exports.addPres = function(){
+exports.addPres = function(req,res){
     var user = initUser(req,res);
     user.roles.push('agent');
     saveUser(res,user);
 }
 
 
-exports.addStudent = function(){
+exports.addStudent = function(req,res){
     var user = initUser(req,res);
     user.roles.push('student');
     saveUser(res,user);
 }
+
+

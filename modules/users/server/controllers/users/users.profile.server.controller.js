@@ -97,7 +97,7 @@ exports.me = function (req, res) {
 };
 
 
-exports.listProfessors = function(req,res){
+exports.listUsers = function(req,res){
     User.find({roles : req.query.role}).exec(function(err,Users){
         if(err){
             res.status(400).send({

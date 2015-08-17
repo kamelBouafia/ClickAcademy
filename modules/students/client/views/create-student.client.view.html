@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <div class="modal-header">
+        <h3 >Creer votre compte Student</h3>
+    </div>
+    <form name="userForm" data-ng-submit="addStudent()" class="signin form-horizontal" novalidate autocomplete="off">
+        <div class="modal-body">
+            <fieldset>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" required id="firstName" name="firstName" class="form-control"
+                           data-ng-model="credentials.firstName" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" class="form-control"
+                           data-ng-model="credentials.lastName" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" data-ng-model="credentials.email"
+                           placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-control"
+                           data-ng-model="credentials.username" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control"
+                           data-ng-model="credentials.password" placeholder="Password">
+                </div>
+                <div data-ng-show="error" class="text-center text-danger">
+                    <strong data-ng-bind="error"></strong>
+                </div>
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-large btn-primary">Sign up</button>
+            <button type="submit" class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </form>
+</div>

@@ -17,8 +17,8 @@ module.exports = function(app) {
 
     // ajout user
     app.route('/api/add/addProf').post(users.addProf);
-    app.route('/app/add/addPres').post(users.addPres);
-    app.route('pp/add/addStudent').post(users.addStudent);
+    app.route('/api/add/addStudent').post(users.addStudent);
+    app.route('/api/add/addAgent').post(users.addPres);
 
 	// Setting up the users authentication api
     app.route('/api/check/admin').get(users.adminExist);
