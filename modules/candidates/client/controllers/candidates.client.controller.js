@@ -167,6 +167,14 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
 			}
 		};
 
+        // Find a level
+        $scope.findLevel = function() {
+            console.log('get the curent level '+$stateParams.levelId);
+            $http.get('/api/lessons/'+$stateParams.lessonId+'/api/levels/'+$stateParams.levelId)
+                .success(function (response) {
+                    $scope.curentLevel = response;
+                });
+        };
 		// Find a list of Candidates for a single level
 		$scope.find = function() {
 			$scope.candidates = Candidates.query({lessonId: $stateParams.lessonId, levelId: $stateParams.levelId} );

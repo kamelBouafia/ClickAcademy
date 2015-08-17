@@ -1,0 +1,24 @@
+<section data-ng-controller="FormationsController as FormationsCtrl" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Formations</h1>
+    </div>
+    <div class="text-center">
+        <a ng-click="FormationsCtrl.modalCreate('sm')">Créer une nouvelle formation</a>?
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="formation in formations" data-ng-href="/#!/formations/{{formation._id}}" class="list-group-item">
+            <h3 class="list-group-item-heading" data-ng-bind="formation.name"></h3>
+            <h4 class="list-group-item-heading text-muted" data-ng-bind="formation.description"></h4>
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="formation.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="formation.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="formation.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!formations.$resolved || formations.length">
+        Pas encore de Formations
+    </div>
+</section>

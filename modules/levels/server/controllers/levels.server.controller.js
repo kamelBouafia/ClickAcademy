@@ -157,7 +157,10 @@ exports.list = function(req, res) {
 /**
  * Level middleware
  */
-exports.levelByID = function(req, res, next, id) { Level.findById(id).populate('user', 'displayName').exec(function(err, level) {
+exports.levelByID = function(req, res, next, id) { Level.findById(id)
+    .populate('user', 'displayName')
+    .populate('lesson', 'name')
+    .exec(function(err, level) {
 		if (err) return next(err);
 		if (! level) return next(new Error('Failed to load Level ' + id));
 		req.level = level ;
