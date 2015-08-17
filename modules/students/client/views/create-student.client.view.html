@@ -5,250 +5,273 @@
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
-                <h2>Etat civil :</h2>
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-sm-10">
-                                    <select class="form-control">
-                                        <option ng-model="civility">Mlle</option>
-                                        <option ng-model="civility">Mme</option>
-                                        <option ng-model="civility">M</option>
-                                    </select>
-                                </div><!--/col-->
+                <div class="container">
+                    <h2 class="bg-info">Etat civil :</h2>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <select class="form-control">
+                                            <option ng-model="civility">Mlle</option>
+                                            <option ng-model="civility">Mme</option>
+                                            <option ng-model="civility">M</option>
+                                        </select>
+                                    </div><!--/col-->
 
-                            </div><!--/row-->
-                        </div>
-                        <div class="col-md-4">
-                            {{candidate.firstName}}
-                        </div>
-                        <div class="col-md-4">
-                            {{candidate.lastName}}
-                        </div>
-                    </div><!--/row-->
-                    <div class="row">
-                        <div class="col-md-4">
+                                </div><!--/row-->
+                            </div>
+                            <div class="col-md-4">
+                                {{candidate.firstName}}
+                            </div>
+                            <div class="col-md-4">
+                                {{candidate.lastName}}
+                            </div>
+                        </div><!--/row-->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group col-md-11">
+                                    <label class="control-label">Date de naissance</label>
+                                    <div class="input-group date" id="">
+                                        <input type="DATE" class="form-control">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group col-md-11">
+                                    <label class="control-label" for="naissance">Lieu de naissance</label>
+                                    <div class="controls">
+                                        <input type="text" data-ng-model="name" id="naissance" class="form-control" placeholder="Name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group col-md-11">
+                                    <label class="control-label" for="nationnalite">Nationnalité</label>
+                                    <div class="controls">
+                                        <input type="text" data-ng-model="name" id="Nationnalite" class="form-control" placeholder="Name" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/row-->
+                        <div class="row">
                             <div class="form-group col-md-11">
-                                <label class="control-label">Date de naissance</label>
-                                <div class="input-group date" id="">
-                                    <input type="DATE" class="form-control">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group col-md-11">
-                                <label class="control-label" for="naissance">Lieu de naissance</label>
+                                <label class="control-label" for="adresse">Adresse</label>
                                 <div class="controls">
-                                    <input type="text" data-ng-model="name" id="naissance" class="form-control" placeholder="Name" required>
+                                    <input type="text" data-ng-model="name" id="adresse" class="form-control" placeholder="Name" required>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group col-md-11">
-                                <label class="control-label" for="nationnalite">Nationnalité</label>
-                                <div class="controls">
-                                    <input type="text" data-ng-model="name" id="Nationnalite" class="form-control" placeholder="Name" required>
+                        </div><!--/row-->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="postal">Code postal</label>
+                                    <div class="controls">
+                                        <input type="number" data-ng-model="name" id="postal" class="form-control" placeholder="Name" required>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><!--/row-->
-                    <div class="row">
-                        <div class="form-group col-md-11">
-                            <label class="control-label" for="adresse">Adresse</label>
-                            <div class="controls">
-                                <input type="text" data-ng-model="name" id="adresse" class="form-control" placeholder="Name" required>
-                            </div>
-                        </div>
-                    </div><!--/row-->
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label" for="postal">Code postal</label>
-                                <div class="controls">
-                                    <input type="number" data-ng-model="name" id="postal" class="form-control" placeholder="Name" required>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label" for="commune">Commune</label>
+                                    <div class="controls">
+                                        <input type="text" data-ng-model="name" id="commune" class="form-control" placeholder="Name" required>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label class="control-label" for="commune">Commune</label>
-                                <div class="controls">
-                                    <input type="text" data-ng-model="name" id="commune" class="form-control" placeholder="Name" required>
+                        </div><!--/row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="phone">Téléphone</label>
+                                    <div class="controls">
+                                        <input type="text" ng-model="phone" ng-pattern="/^\+?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}$/" class="form-control" name="phone" id="phone" placeholder="06-99-35-99-86" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><!--/row-->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="phone">Téléphone</label>
-                                <div class="controls">
-                                    <input type="text" ng-model="phone" ng-pattern="/^\+?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}$/" class="form-control" name="phone" id="phone" placeholder="06-99-35-99-86" />
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="phoned">Téléphone domicile</label>
+                                    <div class="controls">
+                                        <input type="text" ng-model="phone" ng-pattern="/^\+?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}$/" class="form-control" name="phone" id="phoned" placeholder="06-99-35-99-86" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="phoned">Téléphone domicile</label>
-                                <div class="controls">
-                                    <input type="text" ng-model="phone" ng-pattern="/^\+?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}$/" class="form-control" name="phone" id="phoned" placeholder="06-99-35-99-86" />
+                        </div><!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="email">Email</label>
+                                    <div class="controls">
+                                        <input type="email" data-ng-model="name" id="email" class="form-control" placeholder="Name" required>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><!--/row-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="email">Email</label>
-                                <div class="controls">
-                                    <input type="email" data-ng-model="name" id="email" class="form-control" placeholder="Name" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/row-->
+                        </div><!--/row-->
+                    </div>
                 </div>
-                <h2>Personne à contacter en cas d'urgence (RESPONSABLE LEGAUX si enfants) :</h2>
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Nom</label>
-                                <div class="controls">
-                                    <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+                <div class="container">
+                    <h2 class="bg-info">Personne à contacter en cas d'urgence (RESPONSABLE LEGAUX si enfants) :</h2>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Nom</label>
+                                    <div class="controls">
+                                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label class="control-label" for="lastname">Prénom</label>
-                                <div class="controls">
-                                    <input type="text" data-ng-model="name" id="lastname" class="form-control" placeholder="Name" required>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="lastname">Prénom</label>
+                                    <div class="controls">
+                                        <input type="text" data-ng-model="name" id="lastname" class="form-control" placeholder="Name" required>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><!--/row-->
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label" for="fonction">Fonction</label>
-                                <div class="controls">
-                                    <input type="text" data-ng-model="name" id="fonction" class="form-control" placeholder="Name" required>
+                        </div><!--/row-->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="fonction">Fonction</label>
+                                    <div class="controls">
+                                        <input type="text" data-ng-model="name" id="fonction" class="form-control" placeholder="Name" required>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><!--/row-->
-                    <div class="row">
-                        <div class="form-group col-md-11">
-                            <label class="control-label" for="adresse2">Adresse</label>
-                            <div class="controls">
-                                <input type="text" data-ng-model="name" id="adresse2" class="form-control" placeholder="Name" required>
-                            </div>
-                        </div>
-                    </div><!--/row-->
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label class="control-label" for="postal2">Code postal</label>
-                            <div class="controls">
-                                <input type="number" data-ng-model="name" id="postal2" class="form-control" placeholder="Name" required>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-8">
-                            <label class="control-label" for="commune2">Commune</label>
-                            <div class="controls">
-                                <input type="text" data-ng-model="name" id="commune2" class="form-control" placeholder="Name" required>
-                            </div>
-                        </div>
-                    </div><!--/row-->
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label" for="phone2">Téléphone domicile</label>
+                        </div><!--/row-->
+                        <div class="row">
+                            <div class="form-group col-md-11">
+                                <label class="control-label" for="adresse2">Adresse</label>
                                 <div class="controls">
-                                    <input type="text" ng-model="phone" ng-pattern="/^\+?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}$/" class="form-control" name="phone" id="phone2" placeholder="06-99-35-99-86" />
+                                    <input type="text" data-ng-model="name" id="adresse2" class="form-control" placeholder="Name" required>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label" for="phone3">Téléphone portable</label>
+                        </div><!--/row-->
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label" for="postal2">Code postal</label>
                                 <div class="controls">
-                                    <input type="text" ng-model="phone" ng-pattern="/^\+?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}$/" class="form-control" name="phone" id="phone3" placeholder="06-99-35-99-86" />
+                                    <input type="number" data-ng-model="name" id="postal2" class="form-control" placeholder="Name" required>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label" for="phone4">Téléphone de travail</label>
+                            <div class="form-group col-md-8">
+                                <label class="control-label" for="commune2">Commune</label>
                                 <div class="controls">
-                                    <input type="text" ng-model="phone" ng-pattern="/^\+?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}$/" class="form-control" name="phone" id="phone4" placeholder="06-99-35-99-86" />
+                                    <input type="text" data-ng-model="name" id="commune2" class="form-control" placeholder="Name" required>
                                 </div>
                             </div>
-                        </div>
-                    </div><!--/row-->
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label" for="email2">Email</label>
-                                <div class="controls">
-                                    <input type="email" data-ng-model="name" id="email2" class="form-control" placeholder="Name" required>
+                        </div><!--/row-->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="phone2">Téléphone domicile</label>
+                                    <div class="controls">
+                                        <input type="text" ng-model="phone" ng-pattern="/^\+?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}$/" class="form-control" name="phone" id="phone2" placeholder="06-99-35-99-86" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><!--/row-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="phone3">Téléphone portable</label>
+                                    <div class="controls">
+                                        <input type="text" ng-model="phone" ng-pattern="/^\+?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}$/" class="form-control" name="phone" id="phone3" placeholder="06-99-35-99-86" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="phone4">Téléphone de travail</label>
+                                    <div class="controls">
+                                        <input type="text" ng-model="phone" ng-pattern="/^\+?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}[- ]?\d{2}$/" class="form-control" name="phone" id="phone4" placeholder="06-99-35-99-86" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/row-->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="email2">Email</label>
+                                    <div class="controls">
+                                        <input type="email" data-ng-model="name" id="email2" class="form-control" placeholder="Name" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/row-->
+                    </div>
                 </div>
-                <h2>Comment avez-vous connu Clic Academy:</h2>
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label" for="site">Sur internet, précisez le site :</label>
-                                <div class="controls">
-                                    <input type="url" ng-model="phone" class="form-control" name="phone" id="site" placeholder="www.esi.dz" />
+                <div class="container">
+                    <h2 class="bg-info">Comment avez-vous connu Clic Academy:</h2>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label" for="site">Sur internet, précisez le site :</label>
+                                    <div class="controls">
+                                        <input type="url" ng-model="phone" class="form-control" name="phone" id="site" placeholder="http://www.esi.dz" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-
-                        </div>
-                        <div class="col-md-4">
-
-                        </div>
-                    </div><!--/row-->
-                    <div class="row">
-                        <div class="col-md-4">
-
-                        </div>
-                        <div class="col-md-4">
-
-                        </div>
-                        <div class="col-md-4">
-
-                        </div>
-                    </div><!--/row-->
-                    <div class="row">
-                        <div class="col-md-4">
-
-                        </div>
-                        <div class="col-md-4">
-
-                        </div>
-                        <div class="col-md-4">
-
-                        </div>
-                    </div><!--/row-->
-                    <div class="row">
-                        <div class="col-md-4">
-
-                        </div>
-                        <div class="col-md-4">
-
-                        </div>
-                        <div class="col-md-4">
-
-                        </div>
-                    </div><!--/row-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="lieu">Par une affiche publicitaire, précisez le lieu :</label>
+                                    <div class="controls">
+                                        <input type="url" ng-model="phone" class="form-control" name="phone" id="lieu" placeholder="http://www.esi.dz" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="stagiaire">Par un stagiaire de l'école, précisez son nom :</label>
+                                    <div class="controls">
+                                        <input type="url" ng-model="phone" class="form-control" name="phone" id="stagiaire" placeholder="http://www.esi.dz" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="magazine">Par une publicité dans un magazine, lequel?</label>
+                                    <div class="controls">
+                                        <input type="url" ng-model="phone" class="form-control" name="phone" id="magazine" placeholder="http://www.esi.dz" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="radio">Par une publicité à la radio, laquelle?</label>
+                                    <div class="controls">
+                                        <input type="url" ng-model="phone" class="form-control" name="phone" id="radio" placeholder="http://www.esi.dz" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="television">Par une publicité à la télévision, précisez la chaine:</label>
+                                    <div class="controls">
+                                        <input type="url" ng-model="phone" class="form-control" name="phone" id="television" placeholder="http://www.esi.dz" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="salon">Lors d'un salon, lequel?</label>
+                                    <div class="controls">
+                                        <input type="url" ng-model="phone" class="form-control" name="phone" id="salon" placeholder="http://www.esi.dz" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="autre">Autre, précisez:</label>
+                                    <div class="controls">
+                                        <input type="url" ng-model="phone" class="form-control" name="phone" id="autre" placeholder="http://www.esi.dz" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/row-->
+                    </div>
                 </div>
 
                 <div class="col-sm-3">

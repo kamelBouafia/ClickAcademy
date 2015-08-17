@@ -128,13 +128,6 @@ var StudentSchema = new Schema({
         required: 'SVP entrez le titre de la formation',
         trim: true
     },
-    interesting:{
-        type: [{
-            type: String,
-            enum: ['Cours collectif', 'Cours individuel', 'Cours accéléré', 'Cours avec hébergement', 'Cours par correspondance', 'Stage pratique']
-        }],
-        default: ['Cours collectif']
-    },
     preferedTime: [{
         day: {
             type: String,

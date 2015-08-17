@@ -25,11 +25,21 @@
                         <input type="text" data-ng-model="description" id="description" class="form-control" placeholder="Desription" required>
                     </div>
                 </div>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="category" required>
+                        <option value="Cours collectif">Cours collectif</option>
+                        <option value="Cours individuel">Cours individuel</option>
+                        <option value="Cours accéléré">Cours accéléré</option>
+                        <option value="Cours par correspondance">Cours par correspondance</option>
+                        <option value="Stage pratique">Stage pratique</option>
+                    </select>
+                </div><!--/col-->
+
             </fieldset>
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success btn-lg" ng-click="ok()" ng-disabled="CreateOfferForm.$invalid">Créer</button>
+        <button class="btn btn-success btn-lg" ng-click="ok()" ng-disabled="CreateOfferForm.$invalid">Créer </button>
         <button class="btn btn-warning btn-lg" ng-click="cancel()">Annuler</button>
     </div>
 </section>

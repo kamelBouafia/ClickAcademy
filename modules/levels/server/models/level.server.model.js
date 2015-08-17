@@ -21,6 +21,10 @@ var LevelSchema = new Schema({
         default: '',
         trim: true
     },
+    price: {
+        type: Number,
+        required: 'SLV éditez le prix du niveau'
+    },
     lesson: {
         type: Schema.ObjectId,
         ref: 'Lesson'
