@@ -7,6 +7,7 @@ var _ = require('lodash'),
 	path = require('path'),
 	mongoose = require('mongoose'),
 	Lesson = mongoose.model('Lesson'),
+    Formation = mongoose.model('Formation'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
@@ -15,16 +16,28 @@ var _ = require('lodash'),
 exports.create = function(req, res) {
 	var lesson = new Lesson(req.body);
 	lesson.user = req.user;
+    lesson.formation = req.formation;
 
-	lesson.save(function(err) {
+	lesson.save(function(err, response) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(lesson);
-
-
+            Formation.findByIdAndUpdate(
+                lesson.formation,
+                {'$push': {lessons: {'_id': lesson._id}}},
+                function (err) {
+                    if (err) {
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    } else{
+                        console.log('new lesson yow yow dcsdoc');
+                        res.jsonp(response);
+                    }
+                }
+            );
 		}
 	});
 };
@@ -75,7 +88,8 @@ exports.delete = function(req, res) {
 /**
  * List of Lessons
  */
-exports.list = function(req, res) { Lesson.find().sort('created').populate('user', 'displayName').exec(function(err, lessons) {
+exports.list = function(req, res) {
+    Lesson.find({formation: req.formation}).sort('created').populate('user', 'displayName').exec(function(err, lessons) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

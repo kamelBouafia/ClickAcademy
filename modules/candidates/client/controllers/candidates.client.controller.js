@@ -189,6 +189,15 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
                     $scope.coursName = response[0].lesson.name;
                 });
         };
+        // Find a list of Candidates for a lesson
+        $scope.findFormation = function() {
+            console.log('get list of candidates for a formation '+$stateParams.formationId);
+            $http.get('/api/formations/'+$stateParams.formationId+'/api/candidates/')
+                .success(function (response) {
+                    $scope.candidatesList = response;
+                    $scope.formationName = response[0].formation.name;
+                });
+        };
 
 		// Find existing Candidate
 		$scope.findOne = function() {

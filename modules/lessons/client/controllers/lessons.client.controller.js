@@ -1,10 +1,10 @@
 'use strict';
 
-var LessonMudule = angular.module('lessons');
+var LessonModule = angular.module('lessons');
 
 // Lessons controller
-LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Lessons','$modal', '$log','Logs','Socket',
-	function($scope, $stateParams, $location, Authentication, Lessons, $modal, $log, Logs, Socket) {
+LessonModule.controller('LessonsController', ['$scope', '$stateParams', '$http', '$location', 'Authentication', 'Lessons','$modal', '$log','Logs','Socket',
+	function($scope, $stateParams, $http, $location, Authentication, Lessons, $modal, $log, Logs, Socket) {
 		$scope.authentication = Authentication;
 
         this.modalCreate = function (size) {
@@ -21,7 +21,7 @@ LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$locati
 
                         console.log(lesson.name);
                         // Redirect after save
-                        lesson.$save(function(response) {
+                        lesson.$save({formationId: $stateParams.formationId},function(response) {
                             //console.log("yow yow event has been created ");
                             parentScope.find();
                             //Socket.emit('send', "creating lesson");
@@ -69,30 +69,6 @@ LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$locati
             });
         };
 
-		// Create new Lesson
-		$scope.create = function () {
-            //wkhtmltopdf http://google.com google.pdf;
-			// Create new Lesson object
-
-
-
-
-
-
-			var lesson = new Lessons ({
-				name: this.name
-			});
-
-			// Redirect after save
-			lesson.$save(function(response) {
-				$location.path('lessons/' + response._id);
-
-				// Clear form fields
-				$scope.name = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
 
 		// Remove existing Lesson
 		$scope.remove = function( lesson ) {
@@ -132,48 +108,53 @@ LessonMudule.controller('LessonsController', ['$scope', '$stateParams', '$locati
 
 		// Update existing Lesson
 		$scope.update = function() {
-			var lesson = $scope.lesson ;
+            $http.put('/api/lessons/'+$stateParams.lessonId, $scope.lesson)
+                .success(function (response) {
+                    $scope.lesson = response;
+                    $location.path('lessons/' + $stateParams.lessonId);
+                });
+			/*var lesson = $scope.lesson ;
 
-			lesson.$update(function() {
+			lesson.$update({formationId: $stateParams.formationId}, function() {
 				$location.path('lessons/' + lesson._id);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
-			});
+			});*/
 		};
 
 		// Find a list of Lessons
 		$scope.find = this.find = function() {
             Socket.emit('sendMsg', 'something to be sent');
             console.log("sending : ");
-			$scope.lessons = Lessons.query();
-            console.log('client getting the lessons : '+$scope.lessons.length);
+			Lessons.query({formationId: $stateParams.formationId},
+                function (response) {
+                    //console.log('dfvdffdvdfvdfv');
+                    $scope.lessons = response;
+                    //$scope.comment.push(response);
+                }, function (errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                }
+            );
+            //console.log('client getting the lessons : '+$scope.lessons.length);
 		};
 
 		// Find existing Lesson
 		$scope.findOne = function() {
-			$scope.lesson = Lessons.get({ 
+            $http.get('/api/lessons/'+$stateParams.lessonId)
+                .success(function (response) {
+                    $scope.lesson = response;
+                });
+			/*$scope.lesson = Lessons.get({
 				lessonId: $stateParams.lessonId
-			});
+			});*/
 		};
 
         Socket.on('sendMsg', function(message) {
             console.log("receiving : "+ message);
         });
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 ]);
-LessonMudule.directive('levelsList', ['Lessons', function(Customers, Notify){
+LessonModule.directive('levelsList', ['Lessons', function(Customers, Notify){
     return {
         restrict :'E',
         transclude: true,
@@ -186,8 +167,6 @@ LessonMudule.directive('levelsList', ['Lessons', function(Customers, Notify){
             });*/
         }
     };
-
-
 }]);
 
 

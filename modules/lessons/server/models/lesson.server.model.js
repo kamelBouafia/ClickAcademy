@@ -26,6 +26,10 @@ var LessonSchema = new Schema({
         type: Schema.ObjectId,
         ref: 'Level'
     }],
+    formation: [{
+        type: Schema.ObjectId,
+        ref: 'Formation'
+    }],
 	created: {
 		type: Date,
 		default: Date.now

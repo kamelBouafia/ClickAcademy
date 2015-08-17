@@ -15,9 +15,10 @@ var _ = require('lodash'),
 exports.create = function(req, res) {
 	var candidate = new Candidate(req.body);
 	candidate.user = req.user;
+    candidate.formation = req.lesson.formation;
     candidate.lesson = req.lesson;
     candidate.level = req.level;
-    console.log('creating a candidate :'+ candidate.level+' ');
+    console.log('creating a candidate :'+ candidate.level+' '+req.lesson);
 
 	candidate.save(function(err) {
 		if (err) {
@@ -99,6 +100,28 @@ exports.listAll = function(req, res) {
         .find({active : false})
         .sort('-created')
         .populate('user', 'displayName')
+        .populate('lesson', 'name')
+        .populate('level', 'name')
+        .exec(function(err, candidates) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(candidates);
+            }
+        });
+};
+
+/**
+ * List of Candidates for a lesson
+ */
+exports.listFormation = function(req, res) {
+    Candidate
+        .find({$and : [{formation : req.formation._id},{active : false}]})
+        .sort('-created')
+        .populate('user', 'displayName')
+        .populate('formation', 'name')
         .populate('lesson', 'name')
         .populate('level', 'name')
         .exec(function(err, candidates) {

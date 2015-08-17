@@ -15,28 +15,37 @@ exports.invokeRolesPolicies = function() {
 	acl.allow([{
 		roles: ['admin'],
 		allows: [{
-			resources: '/api/lessons',
+			resources: '/api/formations/:formationId/api/lessons',
 			permissions: '*'
 		}, {
-			resources: '/api/lessons/:lessonId',
+			resources: '/api/formations/:formationId/api/lessons/:lessonId',
 			permissions: '*'
 		}]
 	}, {
+        roles: ['admin'],
+        allows: [{
+            resources: '/api/lessons',
+            permissions: '*'
+        }, {
+            resources: '/api/lessons/:lessonId',
+            permissions: '*'
+        }]
+    }, {
 		roles: ['user'],
 		allows: [{
-			resources: '/api/lessons',
+			resources: '/api/formations/:formationId/api/lessons',
 			permissions: ['get', 'post']
 		}, {
-			resources: '/api/lessons/:lessonId',
+			resources: '/api/formations/:formationId/api/lessons/:lessonId',
 			permissions: ['get']
 		}]
 	}, {
 		roles: ['guest'],
 		allows: [{
-			resources: '/api/lessons',
+			resources: '/api/formations/:formationId/api/lessons',
 			permissions: ['get']
 		}, {
-			resources: '/api/lessons/:lessonId',
+			resources: '/api/formations/:formationId/api/lessons/:lessonId',
 			permissions: ['get']
 		}]
 	}]);

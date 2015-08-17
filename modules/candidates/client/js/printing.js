@@ -31,9 +31,9 @@ function pdfToHTML(scope){
     source = ' '+ styles+'<h4 id="description-head"> <span class="blue"> C</span>entre <span class="blue"> D</span>e <span class="blue"> F</span>ormation de <span class="blue"> L</span>angues, <span class="blue"> I</span>nformatique,</h4>';
     specialElementHandlers = {
         '#bypassme': function(element, renderer){
-            return true
+            return true;
         }
-    }
+    };
 
     margins = {
         top: 14,
@@ -176,16 +176,3 @@ function pdfToHTML(scope){
     doc.save("preinscriptions.pdf");
 //console.log(doc);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

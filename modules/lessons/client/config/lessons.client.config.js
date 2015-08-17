@@ -4,7 +4,7 @@
 angular.module('lessons').run(['Menus',
 	function(Menus) {
 		// Add the Lessons dropdown item
-		Menus.addMenuItem('topbar', {
+		/*Menus.addMenuItem('topbar', {
 			title: 'Lessons',
 			state: 'lessons',
 			type: 'dropdown'
@@ -20,6 +20,6 @@ angular.module('lessons').run(['Menus',
 		Menus.addSubMenuItem('topbar', 'lessons', {
 			title: 'Create Lesson',
 			state: 'lessons.create'
-		});
+		});*/
 	}
 ]);

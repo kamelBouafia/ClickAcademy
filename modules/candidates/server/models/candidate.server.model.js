@@ -37,6 +37,10 @@ var CandidateSchema = new Schema({
         default:false
     },
 
+    formation: {
+        type: Schema.ObjectId,
+        ref: 'Formation'
+    },
     lesson: {
         type: Schema.ObjectId,
         ref: 'Lesson'

@@ -20,7 +20,7 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
 
                         //console.log('jdjhd c '+lesson._id+$scope.name+' '+level.description);
                         // Redirect after save
-                        level.$save({lessonId: lesson._id},
+                        level.$save({lessonId: $stateParams.lessonId},
                             function(response) {
 
                                 var log = new Logs ({
