@@ -19,12 +19,12 @@ exports.create = function(req, res) {
     level.lesson = req.lesson;
     //console.log('new level for '+level.user);
 
-	level.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
+    level.save(function(err, response) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
             Lesson.findByIdAndUpdate(
                 level.lesson,
                 {'$push': {levels: {'_id': level._id}}},
@@ -34,13 +34,64 @@ exports.create = function(req, res) {
                             message: errorHandler.getErrorMessage(err)
                         });
                     } else{
-                        //console.log('new level yow yow');
-                        res.jsonp(level);
+                        console.log('new level yow yow dcsdoc');
+                        res.jsonp(response);
                     }
                 }
             );
-		}
-	});
+        }
+    });
+    /*
+    Level.find({lesson:level.lesson}).exec(function(err, levels) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            //console.log('new level request listiiiiiiiiiiiiiiiiing'+levels.length);
+            //res.jsonp(levels);
+            var index;
+            var exist=false;
+            for(index = 0; index < levels.length; index++){
+                console.log('new level request listiiiiiiiiiiiiiiiiing  '+levels[index].name+' '+level.name);
+                //if(parseInt(level.name)===parseInt(levels[index].name)){
+                if(parseInt(levels[index].name)===1){
+                    console.log('found oooooooooooone');
+                    exist=true;
+                }
+            }
+            if(exist){
+                console.log('now u cannot add your level');
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else{
+                console.log('u can add your level');
+                level.save(function(err, response) {
+                    if (err) {
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    } else {
+                        Lesson.findByIdAndUpdate(
+                            level.lesson,
+                            {'$push': {levels: {'_id': level._id}}},
+                            function (err, contenu) {
+                                if (err) {
+                                    return res.status(400).send({
+                                        message: errorHandler.getErrorMessage(err)
+                                    });
+                                } else{
+                                    console.log('new level yow yow dcsdoc');
+                                    res.jsonp(response);
+                                }
+                            }
+                        );
+                    }
+                });
+            }
+        }
+    });*/
 };
 
 /**

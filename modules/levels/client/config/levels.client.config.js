@@ -4,7 +4,7 @@
 angular.module('levels').run(['Menus',
 	function(Menus) {
 		// Add the Levels dropdown item
-		Menus.addMenuItem('topbar', {
+		/*Menus.addMenuItem('topbar', {
 			title: 'Levels',
 			state: 'levels',
 			type: 'dropdown'
@@ -20,6 +20,6 @@ angular.module('levels').run(['Menus',
 		Menus.addSubMenuItem('topbar', 'levels', {
 			title: 'Create Level',
 			state: 'levels.create'
-		});
+		});*/
 	}
 ]);

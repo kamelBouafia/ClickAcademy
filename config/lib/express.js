@@ -247,5 +247,9 @@ module.exports.init = function (db) {
 	// Configure Socket.io
 	app = this.configureSocketIO(app, db);
 
+
+
+
+
 	return app;
 };

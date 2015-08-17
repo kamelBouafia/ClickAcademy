@@ -1,8 +1,8 @@
 'use strict';
 
 // Levels controller
-angular.module('levels').controller('LevelsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Levels', '$modal',
-	function($scope, $http, $stateParams, $location, Authentication, Levels, $modal ) {
+angular.module('levels').controller('LevelsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Levels', '$modal','Logs',
+	function($scope, $http, $stateParams, $location, Authentication, Levels, $modal ,Logs) {
 		$scope.authentication = Authentication;
 
         this.modalCreate = function (selectedLesson) {
@@ -22,6 +22,22 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
                         // Redirect after save
                         level.$save({lessonId: lesson._id},
                             function(response) {
+
+                                var log = new Logs ({
+                                    name: user.firstName +' a crée le Niveau: ' + $scope.name,
+                                    description: $scope.description
+                                });
+//
+
+                                log.$save(function(response) {
+                                    //$location.path('logs/' + response._id);
+
+                                    // Clear form fields
+                                    $scope.name = '';
+                                }, function(errorResponse) {
+                                    $scope.error = errorResponse.data.message;
+                                });
+
                                 //console.log('yow yow level has been created ');
                                 //parentScope.find();
                                 parentScope.levels.push(response);
@@ -33,7 +49,10 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
                     };
 
                     $scope.ok = function () {
-                        //console.log('jdjhd c wdddddddddddddddd');
+                        console.log('jdjhd c wdddddddddddddddd');
+                        //$scope.message="creating a Level By : ";
+                        //chat.sendMessage();
+
                         $scope.create();
                         modalInstance.close();
                     };
@@ -50,6 +69,8 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
                     }
                 }
             });
+
+
         };
 
         // Open a modal window to update a single event record
@@ -61,11 +82,11 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
                     $scope.level = level;
                     $scope.lesson = lesson;
 
-                    $scope.value = parseInt(level.name);
+                    /*$scope.value = parseInt(level.name);
                     $scope.$watch('value',function(val,old){
                         $scope.value = parseInt(val);
                         $scope.level.name=$scope.value;
-                    });
+                    });*/
 
                     // Update existing Level
                     $scope.update = function() {
@@ -108,7 +129,22 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
 
         // Remove existing Level
 		$scope.remove = function( level ) {
-			if ( level ) { level.$remove();
+			if ( level ) {
+                var log = new Logs ({
+                    name: user.firstName +' a supprimé le Niveau: ' + lesson.name
+
+                });
+//
+
+                log.$save(function(response) {
+
+                    // alert(lesson.name);
+
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
+
+                level.$remove();
 
 				for (var i in $scope.levels ) {
 					if ($scope.levels [i] === level ) {
@@ -146,3 +182,18 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
 		};
 	}
 ]);
+angular.module('levels').filter('orderObjectBy', function() {
+    return function(items, field, reverse) {
+        var filtered = [];
+        angular.forEach(items, function(item) {
+            //item.name=parseInt(item.name);
+            filtered.push(item);
+        });
+        filtered.sort(function (a, b) {
+            //return (a[field] > b[field] ? 1 : -1);
+            return (a.name > b.name ? 1 : -1);
+        });
+        if(reverse) filtered.reverse();
+        return filtered;
+    };
+});

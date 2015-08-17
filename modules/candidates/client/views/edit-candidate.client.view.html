@@ -1,0 +1,42 @@
+<section>
+    <div class="page-header">
+        <h1>Mise à jours du Candidat {{candidate.firstName}} {{candidate.lastName}} </h1>
+    </div>
+    <div class="col-md-12">
+        <form class="form-horizontal"  name="CreateOfferForm" novalidate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label" for="firstName">Nom</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="candidate.firstName" ng-pattern='/^[a-zA-Z ]+$/' id="firstName" class="form-control" placeholder="Nom" required>
+                    </div>
+                    <label class="control-label" for="lastName">Prénom</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="candidate.lastName" ng-pattern='/^[a-zA-Z ]+$/' id="lastName" class="form-control" placeholder="Prénom" required>
+                    </div>
+                    <label class="control-label" for="phone">Téléphone</label>
+                    <div class="controls">
+                        <input type="text" ng-model="candidate.phone" ng-pattern="phoneNumbr" class="form-control" name="phone" id="phone" placeholder="06-99-35-99-86" />
+                    </div>
+                    <label class="control-label" for="days">Disponibilité</label>
+                    <div class="controls">
+                        <label ng-repeat="dayName in days">
+                            <input
+                                    type="checkbox"
+                                    id="days"
+                                    name="selectedDays[]"
+                                    value="{{dayName}}"
+                                    ng-checked="selection.indexOf(dayName) > -1"
+                                    ng-click="toggleSelection(dayName)"
+                                    > {{dayName}}
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success btn-lg" ng-click="ok()" ng-disabled="CreateOfferForm.$invalid">Mise à jours</button>
+        <button class="btn btn-warning btn-lg" ng-click="cancel()">Annuler</button>
+    </div>
+</section>

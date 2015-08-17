@@ -14,6 +14,9 @@ mongoose.connect(function (db) {
 
 	// Start the app by listening on <port>
 	app.listen(config.port);
+	//app.get('server').listen(config.port);
+
+
 
 	// Logging initialization
 	console.log('MEAN.JS application started on port ' + config.port);
