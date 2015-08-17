@@ -1,0 +1,29 @@
+<section data-ng-controller="AgentsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Agent</h1>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="agent in agents">
+            <td>
+                <button class="btn" ng-click=" ">
+                    <span class="glyphicon glyphicon-pencil"></span>  Edit
+                </button>
+            </td>
+            <td>{{ agent.firstName }}</td>
+            <td>{{ agent.lastName }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button class="btn btn-success" ng-click="open('lg')">create new Agent</button>
+
+</section>

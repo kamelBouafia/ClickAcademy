@@ -14,6 +14,12 @@ module.exports = function(app) {
 	app.route('/api/auth/reset/:token').get(users.validateResetToken);
 	app.route('/api/auth/reset/:token').post(users.reset);
 
+
+    // ajout user
+    app.route('/api/add/addProf').post(users.addProf);
+    app.route('/api/add/addStudent').post(users.addStudent);
+    app.route('/api/add/addAgent').post(users.addPres);
+
 	// Setting up the users authentication api
     app.route('/api/check/admin').get(users.adminExist);
 	app.route('/api/auth/signup').post(users.signup);

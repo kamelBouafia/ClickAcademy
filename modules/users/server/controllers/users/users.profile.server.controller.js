@@ -95,3 +95,16 @@ exports.changeProfilePicture = function (req, res) {
 exports.me = function (req, res) {
 	res.json(req.user || null);
 };
+
+
+exports.listUsers = function(req,res){
+    User.find({roles : req.query.role}).exec(function(err,Users){
+        if(err){
+            res.status(400).send({
+               message: 'there is no users'
+            });
+        }
+        console.log(Users);
+        res.jsonp(Users);
+    })
+}
