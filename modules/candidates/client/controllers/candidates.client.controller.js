@@ -219,5 +219,13 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$htt
                 console.log('$scope is being passed to printing function = '+ cours);
                 pdfToHTML($scope);
         };
+
+        $scope.toHTMLLevel = function() {
+
+            //cours = $scope.coursName;
+            console.log('$scope is being passed to printing function = '+ $scope.curentLevel.name);
+            console.log('lesson : '+  $scope.curentLevel.lesson.name);
+            pdfToHTMLLevel($scope);
+        };
 	}
 ]);
