@@ -9,10 +9,14 @@ angular.module('professors').controller('ProfessorsController', ['$scope','$http
 
             var modalInstance = $modal.open({
                 animation: $scope.animationsEnabled,
+                backdrop: false,
                 templateUrl: 'modules/professors/views/create-professor.client.view.html',
                 controller: 'SignupProf',
                 size: size,
                 resolve:{
+                    professors : function(){
+                        return  $scope.professors;
+                    }
                 }
             });
         };
@@ -65,18 +69,21 @@ angular.module('professors').controller('ProfessorsController', ['$scope','$http
 ]);
 
 
-angular.module('professors').controller('SignupProf',['$scope','$http','$modalInstance','Authentication',
-    function ($scope,$http, $modalInstance) {
+angular.module('professors').controller('SignupProf',['$scope','$http','$modalInstance','professors',
+    function ($scope, $http, $modalInstance, professors) {
+
+        $scope.professors = professors;
 
         $scope.addProf = function() {
             $http.post('/api/add/addProf', $scope.credentials).success(function(response) {
                 // If successful we assign the response to the global user model
-                $scope.cancel();
-
+                $scope.professors.push(response);
+                $modalInstance.close($scope.professors);
             }).error(function(response) {
                 $scope.error = response.message;
             });
         };
+
 
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');

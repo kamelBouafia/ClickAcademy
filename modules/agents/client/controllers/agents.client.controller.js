@@ -8,10 +8,14 @@ angular.module('agents').controller('AgentsController', ['$scope','$http' ,'$mod
 
             var modalInstance = $modal.open({
                 animation: $scope.animationsEnabled,
+                backdrop: false,
                 templateUrl: 'modules/agents/views/create-agent.client.view.html',
                 controller: 'SignupAgent',
                 size: size,
                 resolve:{
+                    agents : function(){
+                        return $scope.agents;
+                    }
                 }
             });
         };
@@ -64,25 +68,18 @@ angular.module('agents').controller('AgentsController', ['$scope','$http' ,'$mod
 ]);
 
 
-angular.module('agents').controller('SignupAgent',['$scope','$http','$modalInstance','Authentication',
-    function ($scope,$http, $modalInstance,Authentication) {
+angular.module('agents').controller('SignupAgent',['$scope','$http','$modalInstance','agents',
+    function ($scope,$http, $modalInstance, agents) {
+
+        $scope.agents = agents;
 
         $scope.addAgent = function() {
             $http.post('/api/add/addAgent', $scope.credentials).success(function(response) {
                 // If successful we assign the response to the global user model
-                $scope.cancel();
-                $scope.find();
+                $scope.agents.push(response);
+                $modalInstance.close($scope.agents);
             }).error(function(response) {
                 $scope.error = response.message;
-            });
-        };
-
-        $scope.find = function() {
-            $http.get('/api/users/listUsers',{ params:{role:'agent'}
-            }).success(function(response){
-                $scope.agents = response;
-            }).error(function(response){
-                $scope.error=response.message;
             });
         };
 

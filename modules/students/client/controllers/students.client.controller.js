@@ -5,14 +5,19 @@ angular.module('students').controller('StudentsController', ['$scope','$http','$
 	function($scope,$http ,$modal ,$stateParams, $location, Authentication, Students ) {
 		$scope.authentication = Authentication;
 
+
         $scope.open = function (size) {
 
             var modalInstance = $modal.open({
                 animation: $scope.animationsEnabled,
+                backdrop: false,
                 templateUrl: 'modules/students/views/create-student.client.view.html',
                 controller: 'SignupStudent',
                 size: size,
                 resolve:{
+                    students : function(){
+                        return $scope.students
+                    }
                 }
             });
         };
@@ -49,6 +54,7 @@ angular.module('students').controller('StudentsController', ['$scope','$http','$
             $http.get('/api/users/listUsers',{ params:{role:'student'}
             }).success(function(response){
                 $scope.students = response;
+                console.log($scope.students);
             }).error(function(response){
                 $scope.error=response.message;
             });
@@ -64,18 +70,22 @@ angular.module('students').controller('StudentsController', ['$scope','$http','$
 ]);
 
 
-angular.module('students').controller('SignupStudent',['$scope','$http','$modalInstance','Authentication',
-    function ($scope,$http, $modalInstance) {
+angular.module('students').controller('SignupStudent',['$scope','$http','$modalInstance','students',
+    function ($scope,$http, $modalInstance,students) {
+
+
+        $scope.students = students;
 
         $scope.addStudent = function() {
             $http.post('/api/add/addStudent', $scope.credentials).success(function(response) {
                 // If successful we assign the response to the global user model
-                $scope.cancel();
-                this.find();
+                $scope.students.push(response);
+                $modalInstance.close($scope.students);
             }).error(function(response) {
                 $scope.error = response.message;
             });
         };
+
 
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
