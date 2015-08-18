@@ -4,7 +4,24 @@
 angular.module('agents').controller('AgentsController', ['$scope','$http' ,'$modal' , '$stateParams', '$location', 'Authentication', 'Agents',
 	function($scope,$http,$modal, $stateParams, $location, Authentication, Agents ) {
 
-        $scope.open = function (size) {
+        $scope.openEdit = function( size , agent ){
+
+            $scope.agent = agent;
+            var modalInstance = $modal.open({
+               animation: $scope.animationEnabled,
+                backdrop: false,
+                templateUrl: 'modules/agents/views/edit-agent.client.view.html',
+                controller: 'editAgent',
+                size: size,
+                resolve:{
+                    agent: function(){
+                        return $scope.agent;
+                    }
+                }
+            });
+        }
+
+        $scope.openCreate = function (size) {
 
             var modalInstance = $modal.open({
                 animation: $scope.animationsEnabled,
@@ -87,3 +104,18 @@ angular.module('agents').controller('SignupAgent',['$scope','$http','$modalInsta
             $modalInstance.dismiss('cancel');
         };
     }]);
+
+angular.module('agents').controller('editAgent',['$scope','$http','$modalInstance','agent',
+    function ($scope,$http, $modalInstance, agent) {
+
+        $scope.agent = agent;
+
+        $scope.update = function(){
+
+        }
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    }]);
+

@@ -6,7 +6,7 @@ angular.module('students').controller('StudentsController', ['$scope','$http','$
 		$scope.authentication = Authentication;
 
 
-        $scope.open = function (size) {
+        $scope.openCreate = function (size) {
 
             var modalInstance = $modal.open({
                 animation: $scope.animationsEnabled,

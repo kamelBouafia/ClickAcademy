@@ -5,7 +5,7 @@ angular.module('professors').controller('ProfessorsController', ['$scope','$http
 	function($scope,$http,$modal,$log,$stateParams, $location, Professors ) {
 
 
-        $scope.open = function (size) {
+        $scope.openCreate = function (size) {
 
             var modalInstance = $modal.open({
                 animation: $scope.animationsEnabled,

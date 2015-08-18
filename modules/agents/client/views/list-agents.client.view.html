@@ -14,7 +14,7 @@
         <tbody>
         <tr ng-repeat="agent in agents">
             <td>
-                <button class="btn" ng-click=" ">
+                <button class="btn" ng-click="openEdit('lg',agent)">
                     <span class="glyphicon glyphicon-pencil"></span>  Edit
                 </button>
             </td>
@@ -24,6 +24,6 @@
         </tbody>
     </table>
 
-    <button class="btn btn-success" ng-click="open('lg')">create new Agent</button>
+    <button class="btn btn-success" ng-click="openCreate('lg')">create new Agent</button>
 
 </section>
