@@ -16,7 +16,8 @@ LessonModule.controller('LessonsController', ['$scope', '$stateParams', '$http',
                         // Create new Evenement object
                         var lesson = new Lessons ({
                             name: $scope.name,
-                            description: $scope.description
+                            description: $scope.description,
+                            category: $scope.category
                         });
 
                         console.log(lesson.name);

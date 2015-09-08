@@ -22,6 +22,13 @@ var LessonSchema = new Schema({
         default: '',
         trim: true
     },
+    category:{
+        type: [{
+            type: String,
+            enum: ['Cours collectif', 'Cours individuel', 'Cours accéléré', 'Cours par correspondance', 'Stage pratique']
+        }],
+        default: ['Cours collectif']
+    },
     levels: [{
         type: Schema.ObjectId,
         ref: 'Level'

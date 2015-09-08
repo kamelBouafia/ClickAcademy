@@ -15,7 +15,8 @@ angular.module('levels').controller('LevelsController', ['$scope', '$http', '$st
                         // Create new Evenement object
                         var level = new Levels ({
                             name: $scope.name,
-                            description: $scope.description
+                            description: $scope.description,
+                            price: $scope.price
                         });
 
                         //console.log('jdjhd c '+lesson._id+$scope.name+' '+level.description);

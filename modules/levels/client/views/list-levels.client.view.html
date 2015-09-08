@@ -15,6 +15,11 @@
                     voir liste des étudiant préinscris
                 </button>
             </span>
+            <span class="pull-right" data-ng-controller="StudentsController">
+                <button class="btn btn-primary" data-ng-click="listStudents(level, $event)">
+                    voir liste des étudiant inscris
+                </button>
+            </span>
 
             <h3 class="list-group-item-heading" data-ng-bind="'Niveau  '+level.name"></h3>
             <h4 class="list-group-item-heading" data-ng-bind="level.description"></h4>
