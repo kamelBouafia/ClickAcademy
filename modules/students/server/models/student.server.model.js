@@ -10,12 +10,13 @@ var mongoose = require('mongoose'),
  * Student Schema
  */
 var StudentSchema = new Schema({
+    candidate: {
+        type: Schema.ObjectId,
+        ref: 'Candidate'
+    },
     civility:{
-        type: {
-            type: String,
-            enum: ['Mlle', 'Mme', 'M']
-        },
-        default: ['M']
+        type: String,
+        enum: ['Mlle', 'Mme', 'M']
     },
     birthday: {
         type: Date,
@@ -91,21 +92,19 @@ var StudentSchema = new Schema({
         postalCode: {
             type: String,
             default: '',
-            required: 'SVP entrez votre code postal',
             trim: true
         },
         town: {
             type: String,
             default: '',
-            required: 'SVP entrez votre commune',
             trim: true
         },
-        phone:{
+        homePhone:{
             type: String,
             trim: true,
             default: ''
         },
-        homePhone:{
+        phone:{
             type: String,
             trim: true,
             default: ''
@@ -114,9 +113,15 @@ var StudentSchema = new Schema({
             type: String,
             trim: true,
             default: ''
+        },
+        email: {
+            type: String,
+            trim: true,
+            default: '',
+            match: [/.+\@.+\..+/, 'SVL Editez une adresse email valide']
         }
     },
-    formation: {
+    /*formation: {
         type: String,
         default: '',
         required: 'SVP entrez votre formation',
@@ -145,13 +150,13 @@ var StudentSchema = new Schema({
                 trim: true
             }
         }]
-    }],
-    knowingUsBy: {
+    }],*/
+    knowingUsBy: [{
         type: String,
         default: '',
         trim: true
-    },
-    IDCopy:{
+    }],
+    /*IDCopy:{
         type: Boolean,
         default:true
     },
@@ -174,7 +179,7 @@ var StudentSchema = new Schema({
     formationFees:{
         type: Boolean,
         default:true
-    },
+    },*/
     created: {
 		type: Date,
 		default: Date.now
